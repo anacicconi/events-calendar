@@ -57,7 +57,7 @@ public class RecipeDetailsFragment extends Fragment { //implements StepAdapter.S
     //public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     //    super.onActivityCreated(savedInstanceState);
     //
-    //    isTablet = ((RecipeDetailsActivity)requireActivity()).isTablet();
+    //    isTablet = ((EventDetailsActivity)requireActivity()).isTablet();
     //}
     //
     //@Override

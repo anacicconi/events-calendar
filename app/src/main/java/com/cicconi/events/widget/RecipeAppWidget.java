@@ -6,8 +6,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
+import com.cicconi.events.EventDetailsActivity;
 import com.cicconi.events.R;
-import com.cicconi.events.RecipeDetailsActivity;
 
 /**
  * Implementation of App Widget functionality.
@@ -38,8 +38,8 @@ public class RecipeAppWidget extends AppWidgetProvider {
 
         views.setRemoteAdapter(R.id.widget_grid_view, intent);
 
-        // Set the RecipeDetailsActivity intent to launch when clicked
-        Intent appIntent = new Intent(context, RecipeDetailsActivity.class);
+        // Set the EventDetailsActivity intent to launch when clicked
+        Intent appIntent = new Intent(context, EventDetailsActivity.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_grid_view, appPendingIntent);
 

@@ -1,17 +1,21 @@
 package com.cicconi.events.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cicconi.events.R;
 import com.cicconi.events.database.Event;
+import com.cicconi.events.database.EventPriceType;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 import java.text.ParseException;
@@ -54,7 +58,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     public void onBindViewHolder(@NonNull EventAdapterViewHolder holder, int position) {
         String title = mEventData.get(position).getTitle();
         Long date = mEventData.get(position).getDateStart();
-        String type = mEventData.get(position).getPriceType();
+        String priceType = mEventData.get(position).getPriceType();
         String imageUrl = mEventData.get(position).getCoverUrl();
 
         if(!title.isEmpty()) {
@@ -66,14 +70,19 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         String finalDate = formatDate(date);
         holder.mDate.setText(finalDate);
 
-        if(!type.isEmpty()) {
-            holder.mType.setText(type);
+        if(priceType != null && !priceType.isEmpty()) {
+            holder.mType.setText(priceType);
         } else {
             holder.mType.setText(R.string.unknown);
         }
 
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = mContext.getTheme();
+        theme.resolveAttribute(R.attr.colorSecondary, typedValue, true);
+        @ColorInt int colorSecondary = typedValue.data;
+
         if(mEventData.get(position).isFavorite()) {
-            holder.mFavorite.setColorFilter(mContext.getResources().getColor(R.color.colorAccent));
+            holder.mFavorite.setColorFilter(colorSecondary);
         }
 
         Picasso.with(mContext)

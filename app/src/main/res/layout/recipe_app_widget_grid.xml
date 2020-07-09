@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/padding_small"
-    android:background="@color/colorWhite"
+    android:background="@color/background"
     >
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="?colorPrimary"
         android:padding="@dimen/padding_small"
-        android:textColor="@color/colorWhite"
+        android:textColor="?colorOnSecondary"
         android:text="@string/my_favorite_recipes"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         />

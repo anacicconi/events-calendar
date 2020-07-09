@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="@+id/event_info"
         app:layout_constraintVertical_chainStyle="packed"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textColor="@color/colorWhite"
+        android:textColor="?colorOnSecondary"
         tools:text="Puce Muse présente: Concert Jardinal de l'été"
         />
     <TextView
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="03/10/2020"
-        android:textColor="@color/colorWhite"
+        android:textColor="?colorOnSecondary"
         android:paddingStart="@dimen/margin_medium"
         android:paddingEnd="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_small"
@@ -73,7 +73,7 @@
         android:paddingStart="@dimen/padding_small"
         android:paddingEnd="@dimen/margin_medium"
         tools:text="gratuit"
-        android:textColor="@color/colorWhite"
+        android:textColor="?colorOnSecondary"
         app:layout_constraintTop_toTopOf="@id/event_date"
         app:layout_constraintBottom_toBottomOf="@id/event_date"
         app:layout_constraintStart_toEndOf="@id/event_date"

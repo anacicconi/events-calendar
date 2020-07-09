@@ -23,12 +23,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
     private static final String STEP_INSTRUCTION = "Recipe Introduction";
 
     @Rule
-    public ActivityTestRule<RecipeDetailsActivity> mActivityTestRule =
-        new ActivityTestRule<RecipeDetailsActivity>(RecipeDetailsActivity.class) {
+    public ActivityTestRule<EventDetailsActivity> mActivityTestRule =
+        new ActivityTestRule<EventDetailsActivity>(EventDetailsActivity.class) {
             @Override
             protected Intent getActivityIntent() {
                 Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-                Intent result = new Intent(targetContext, RecipeDetailsActivity.class);
+                Intent result = new Intent(targetContext, EventDetailsActivity.class);
                 result.putExtra(Constants.EXTRA_RECIPE, mockRecipe());
                 return result;
             }

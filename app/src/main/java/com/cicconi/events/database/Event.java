@@ -53,8 +53,11 @@ public class Event implements Serializable {
     private String accessMail;
     @ColumnInfo(name = "contact_facebook")
     private String contactFacebook;
+    @ColumnInfo(name = "contact_name")
+    private String contactName;
     @ColumnInfo(name = "access_phone")
     private String accessPhone;
+    private String transport;
     public Boolean favorite;
 
     @Ignore
@@ -62,7 +65,7 @@ public class Event implements Serializable {
         String category, String title, String coverAlt, Long dateStart, String addressName, String description,
         String contactMail, String leadText, String coverUrl, String addressCity, String priceType, String url,
         String dateDescription, String addressZipcode, String priceDetail, String contactPhone, String contactUrl,
-        String accessMail, String contactFacebook, String accessPhone, Boolean favorite) {
+        String accessMail, String contactFacebook, String contactName, String accessPhone, String transport, Boolean favorite) {
         this.apiId = apiId;
         this.accessType = accessType;
         this.addressStreet = addressStreet;
@@ -87,7 +90,9 @@ public class Event implements Serializable {
         this.contactUrl = contactUrl;
         this.accessMail = accessMail;
         this.contactFacebook = contactFacebook;
+        this.contactName = contactName;
         this.accessPhone = accessPhone;
+        this.transport = transport;
         this.favorite = favorite;
     }
 
@@ -95,7 +100,7 @@ public class Event implements Serializable {
         String category, String title, String coverAlt, Long dateStart, String addressName, String description,
         String contactMail, String leadText, String coverUrl, String addressCity, String priceType, String url,
         String dateDescription, String addressZipcode, String priceDetail, String contactPhone, String contactUrl,
-        String accessMail, String contactFacebook, String accessPhone, Boolean favorite) {
+        String accessMail, String contactFacebook, String contactName, String accessPhone, String transport, Boolean favorite) {
         this.id = id;
         this.apiId = apiId;
         this.accessType = accessType;
@@ -121,7 +126,9 @@ public class Event implements Serializable {
         this.contactUrl = contactUrl;
         this.accessMail = accessMail;
         this.contactFacebook = contactFacebook;
+        this.contactName = contactName;
         this.accessPhone = accessPhone;
+        this.transport = transport;
         this.favorite = favorite;
     }
 
@@ -254,7 +261,23 @@ public class Event implements Serializable {
     }
 
     public String getPriceType() {
-        return priceType;
+        return this.priceType;
+    }
+
+    public EventPriceType getEventPriceType() {
+        if(priceType.equals("gratuit")) {
+            return EventPriceType.FREE;
+        }
+
+        if(priceType.equals("conso")) {
+            return EventPriceType.BEVERAGE;
+        }
+
+        if(priceType.equals("payant")) {
+            return EventPriceType.ENTRANCE;
+        }
+
+        return EventPriceType.ENTRANCE;
     }
 
     public void setPriceType(String priceType) {
@@ -325,12 +348,28 @@ public class Event implements Serializable {
         this.contactFacebook = contactFacebook;
     }
 
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
     public String getAccessPhone() {
         return accessPhone;
     }
 
     public void setAccessPhone(String accessPhone) {
         this.accessPhone = accessPhone;
+    }
+
+    public String getTransport() {
+        return transport;
+    }
+
+    public void setTransport(String transport) {
+        this.transport = transport;
     }
 
     public Boolean isFavorite() {

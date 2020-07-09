@@ -1,16 +1,5 @@
 package com.cicconi.events.widget;
 
-import android.content.Context;
-import android.content.Intent;
-import android.text.TextUtils;
-import android.widget.RemoteViews;
-import android.widget.RemoteViewsService;
-import com.cicconi.events.Constants;
-import com.cicconi.events.R;
-import com.cicconi.events.repository.IngredientRepository;
-import java.util.ArrayList;
-import java.util.List;
-
 public class GridRemoteViewsFactory { //implements RemoteViewsService.RemoteViewsFactory {
 
     //private Context mContext;

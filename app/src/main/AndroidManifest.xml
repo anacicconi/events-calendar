@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecipeDetailsActivity" />
+        <activity android:name=".EventDetailsActivity" />
 
         <service android:name=".widget.GridWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />

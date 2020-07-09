@@ -1,13 +1,6 @@
 package com.cicconi.events.viewmodel;
 
-import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-import com.cicconi.events.repository.IngredientRepository;
-import com.cicconi.events.repository.StepRepository;
-import io.reactivex.Completable;
-import java.util.List;
 
 public class RecipeDetailsViewModel extends ViewModel {
 

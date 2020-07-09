@@ -94,7 +94,9 @@ public class RecordResponse {
             this.fields.getContactUrl(),
             this.fields.getAccessMail(),
             this.fields.getContactFacebook(),
+            this.fields.getContactName(),
             this.fields.getAccessPhone(),
+            this.fields.getTransport(),
             false
         );
     }

@@ -1,7 +1,6 @@
 package com.cicconi.events;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +22,7 @@ import com.cicconi.events.worker.SyncEventsWorker;
 import com.facebook.stetho.Stetho;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements EventAdapter.EventClickListener {
 
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
 
     private void observeEventsData() {
         mViewModel.getEvents().observe(this, events -> {
-            Log.i(TAG, "events live data changed");
+            Timber.i("events live data changed");
             onEventsReceived(events);
         });
     }
@@ -130,9 +130,9 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
 
     @Override
     public void onEventItemClick(Event event) {
-        /*Intent recipeDetailsActivityIntent = new Intent(this, RecipeDetailsActivity.class);
-        recipeDetailsActivityIntent.putExtra(Constants.EXTRA_RECIPE, event);
-        startActivity(recipeDetailsActivityIntent);*/
+        Intent eventDetailsActivityIntent = new Intent(this, EventDetailsActivity.class);
+        eventDetailsActivityIntent.putExtra(Constants.EXTRA_EVENT, event);
+        startActivity(eventDetailsActivityIntent);
     }
 
     @Override

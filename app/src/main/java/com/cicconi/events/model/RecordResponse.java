@@ -66,6 +66,9 @@ public class RecordResponse {
 
     public Event toEvent() {
 
+        Date test = this.fields.getDateStart();
+        Long test2 = this.fields.getDateStart().getTime();
+
         return new Event(
             this.recordid,
             this.fields.getAccessType(),

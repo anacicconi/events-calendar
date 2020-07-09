@@ -26,8 +26,6 @@ public class RetrofitBuilder {
 
         Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-            .registerTypeAdapter(Date.class, new DateDeserializer())
-            .excludeFieldsWithoutExposeAnnotation()
             .create();
 
         String baseUrl = "https://opendata.paris.fr/";

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cicconi.events.R;
 import com.cicconi.events.database.Event;
 import com.google.android.material.tabs.TabLayout;
+import com.squareup.picasso.Picasso;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,7 +54,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     public void onBindViewHolder(@NonNull EventAdapterViewHolder holder, int position) {
         String title = mEventData.get(position).getTitle();
         Long date = mEventData.get(position).getDateStart();
-        String type = mEventData.get(position).getAccessType();
+        String type = mEventData.get(position).getPriceType();
+        String imageUrl = mEventData.get(position).getCoverUrl();
 
         if(!title.isEmpty()) {
             holder.mTitle.setText(title);
@@ -73,6 +75,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         if(mEventData.get(position).isFavorite()) {
             holder.mFavorite.setColorFilter(mContext.getResources().getColor(R.color.colorAccent));
         }
+
+        Picasso.with(mContext)
+            .load(imageUrl)
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
+            .into(holder.mCover);
     }
 
     @Override
@@ -81,6 +89,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     }
 
     public class EventAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        final ImageView mCover;
         final TextView mTitle;
         final TextView mDate;
         final TextView mType;
@@ -88,6 +97,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
         EventAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.mCover = itemView.findViewById(R.id.event_cover);
             this.mTitle = itemView.findViewById(R.id.event_title);
             this.mDate = itemView.findViewById(R.id.event_date);
             this.mType = itemView.findViewById(R.id.event_type);

@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -26,6 +27,7 @@ public class RetrofitBuilder {
 
         Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+            .registerTypeAdapter(Date.class, new DateDeserializer())
             .create();
 
         String baseUrl = "https://opendata.paris.fr/";

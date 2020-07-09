@@ -15,13 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cicconi.events.R;
 import com.cicconi.events.database.Event;
-import com.cicconi.events.database.EventPriceType;
-import com.google.android.material.tabs.TabLayout;
+import com.cicconi.events.utils.ColorHandler;
+import com.cicconi.events.utils.DateFormatter;
 import com.squareup.picasso.Picasso;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -57,7 +55,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     @Override
     public void onBindViewHolder(@NonNull EventAdapterViewHolder holder, int position) {
         String title = mEventData.get(position).getTitle();
-        Long date = mEventData.get(position).getDateStart();
+        Long dateStart = mEventData.get(position).getDateStart();
+        Long dateEnd = mEventData.get(position).getDateEnd();
         String priceType = mEventData.get(position).getPriceType();
         String imageUrl = mEventData.get(position).getCoverUrl();
 
@@ -67,22 +66,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             holder.mTitle.setText(R.string.unknown);
         }
 
-        String finalDate = formatDate(date);
+        String finalDate = String.format("%s - %s", DateFormatter.format(mContext, dateStart),
+            DateFormatter.format(mContext, dateEnd));
         holder.mDate.setText(finalDate);
 
         if(priceType != null && !priceType.isEmpty()) {
             holder.mType.setText(priceType);
         } else {
             holder.mType.setText(R.string.unknown);
-        }
-
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = mContext.getTheme();
-        theme.resolveAttribute(R.attr.colorSecondary, typedValue, true);
-        @ColorInt int colorSecondary = typedValue.data;
-
-        if(mEventData.get(position).isFavorite()) {
-            holder.mFavorite.setColorFilter(colorSecondary);
         }
 
         Picasso.with(mContext)
@@ -123,12 +114,5 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
     public interface EventClickListener {
         void onEventItemClick(Event event);
-    }
-
-    private String formatDate(long time) {
-        Calendar cal = Calendar.getInstance(Locale.FRANCE);
-        cal.setTimeInMillis(time * 1000);
-
-        return DateFormat.format("dd-MM-yyyy", cal).toString();
     }
 }

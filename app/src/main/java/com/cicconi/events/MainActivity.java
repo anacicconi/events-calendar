@@ -5,18 +5,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.Constraints;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import com.cicconi.events.adapter.EventAdapter;
 import com.cicconi.events.database.Event;
+import com.cicconi.events.databinding.ActivityMainBinding;
 import com.cicconi.events.viewmodel.MainViewModel;
 import com.cicconi.events.worker.SyncEventsWorker;
 import com.facebook.stetho.Stetho;
@@ -26,17 +25,9 @@ import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements EventAdapter.EventClickListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
-    private RecyclerView mRecyclerView;
     private EventAdapter mEventAdapter;
-    private GridLayoutManager layoutManager;
-
     private MainViewModel mViewModel;
-
-    private ProgressBar mLoadingIndicator;
-    private TextView mErrorMessage;
-    private TextView mNoResultsMessage;
+    private ActivityMainBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +37,16 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         synchronizeEvents();
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
-        mErrorMessage = findViewById(R.id.tv_error_message);
-        mNoResultsMessage = findViewById(R.id.tv_no_results_message);
-        mRecyclerView = findViewById(R.id.recyclerview_recipes);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         final int columns = getResources().getInteger(R.integer.main_recipe_list_columns);
-        layoutManager = new GridLayoutManager(this, columns, GridLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
+        GridLayoutManager layoutManager = new GridLayoutManager(
+            this, columns, GridLayoutManager.VERTICAL, false);
+        mBinding.recyclerviewEvents.setLayoutManager(layoutManager);
+        mBinding.recyclerviewEvents.setHasFixedSize(true);
 
         mEventAdapter = new EventAdapter(this);
-        mRecyclerView.setAdapter(mEventAdapter);
+        mBinding.recyclerviewEvents.setAdapter(mEventAdapter);
 
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
@@ -82,13 +69,9 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
     }
 
     private void loadEvents() {
-        displayLoading();
+        showLoading();
         setCategory();
         observeEventsData();
-    }
-
-    private void displayLoading() {
-        mLoadingIndicator.setVisibility(View.VISIBLE);
     }
 
     private void setCategory() {
@@ -111,21 +94,26 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
             showEventView();
             mEventAdapter.setEventData(events);
         } else {
-            showErrorMessage();
+            showNoResultsMessage();
         }
     }
 
-    private void showEventView() {
-        mLoadingIndicator.setVisibility(View.INVISIBLE);
-        mErrorMessage.setVisibility(View.INVISIBLE);
-        mNoResultsMessage.setVisibility(View.INVISIBLE);
-        mRecyclerView.setVisibility(View.VISIBLE);
+    private void showLoading() {
+        mBinding.loadingIndicator.setVisibility(View.VISIBLE);
+        mBinding.noResultsMessage.setVisibility(View.INVISIBLE);
+        mBinding.recyclerviewEvents.setVisibility(View.VISIBLE);
     }
 
-    private void showErrorMessage() {
-        mLoadingIndicator.setVisibility(View.INVISIBLE);
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mErrorMessage.setVisibility(View.VISIBLE);
+    private void showEventView() {
+        mBinding.loadingIndicator.setVisibility(View.INVISIBLE);
+        mBinding.noResultsMessage.setVisibility(View.INVISIBLE);
+        mBinding.recyclerviewEvents.setVisibility(View.VISIBLE);
+    }
+
+    private void showNoResultsMessage() {
+        mBinding.loadingIndicator.setVisibility(View.INVISIBLE);
+        mBinding.noResultsMessage.setVisibility(View.VISIBLE);
+        mBinding.recyclerviewEvents.setVisibility(View.INVISIBLE);
     }
 
     @Override

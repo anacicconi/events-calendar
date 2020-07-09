@@ -11,7 +11,6 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 
 public class EventRepository {
-    private static final String TAG = EventRepository.class.getSimpleName();
 
     private static AppDatabase mDb;
 

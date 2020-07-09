@@ -25,6 +25,8 @@ public class Event implements Serializable {
     private String coverAlt;
     @ColumnInfo(name = "date_start")
     private Long dateStart;
+    @ColumnInfo(name = "date_end")
+    private Long dateEnd;
     @ColumnInfo(name = "address_name")
     private String addressName;
     private String description;
@@ -62,7 +64,7 @@ public class Event implements Serializable {
 
     @Ignore
     public Event(String apiId, String accessType, String addressStreet, Double latitude, Double longitude,
-        String category, String title, String coverAlt, Long dateStart, String addressName, String description,
+        String category, String title, String coverAlt, Long dateStart, Long dateEnd, String addressName, String description,
         String contactMail, String leadText, String coverUrl, String addressCity, String priceType, String url,
         String dateDescription, String addressZipcode, String priceDetail, String contactPhone, String contactUrl,
         String accessMail, String contactFacebook, String contactName, String accessPhone, String transport, Boolean favorite) {
@@ -75,6 +77,7 @@ public class Event implements Serializable {
         this.title = title;
         this.coverAlt = coverAlt;
         this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
         this.addressName = addressName;
         this.description = description;
         this.contactMail = contactMail;
@@ -97,7 +100,7 @@ public class Event implements Serializable {
     }
 
     public Event(int id, String apiId, String accessType, String addressStreet, Double latitude, Double longitude,
-        String category, String title, String coverAlt, Long dateStart, String addressName, String description,
+        String category, String title, String coverAlt, Long dateStart, Long dateEnd, String addressName, String description,
         String contactMail, String leadText, String coverUrl, String addressCity, String priceType, String url,
         String dateDescription, String addressZipcode, String priceDetail, String contactPhone, String contactUrl,
         String accessMail, String contactFacebook, String contactName, String accessPhone, String transport, Boolean favorite) {
@@ -111,6 +114,7 @@ public class Event implements Serializable {
         this.title = title;
         this.coverAlt = coverAlt;
         this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
         this.addressName = addressName;
         this.description = description;
         this.contactMail = contactMail;
@@ -210,6 +214,14 @@ public class Event implements Serializable {
 
     public void setDateStart(Long dateStart) {
         this.dateStart = dateStart;
+    }
+
+    public Long getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Long dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     public String getAddressName() {

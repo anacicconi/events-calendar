@@ -14,8 +14,6 @@ import java.util.List;
 
 public class MainViewModel extends AndroidViewModel {
 
-    private static final String TAG = MainViewModel.class.getSimpleName();
-
     private final MutableLiveData<CategoryType> category = new MutableLiveData();
     private LiveData<List<Event>> events;
 
@@ -27,7 +25,7 @@ public class MainViewModel extends AndroidViewModel {
         //recipes = recipeRepository.getLocalRecipes();
         // The recipes will be returned based on the value set for category
         category.setValue(CategoryType.ALL);
-        events = Transformations.switchMap(category, (value) -> eventRepository.getLocalEvents(value));
+        events = Transformations.switchMap(category, eventRepository::getLocalEvents);
     }
 
     public LiveData<List<Event>> getEvents() {

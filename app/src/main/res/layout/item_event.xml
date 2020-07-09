@@ -17,16 +17,6 @@
         android:scaleType="centerCrop"
         />
     <ImageView
-        android:id="@+id/event_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginEnd="@dimen/margin_medium"
-        app:srcCompat="@drawable/ic_favorite"
-        app:layout_constraintTop_toTopOf="@id/event_cover"
-        app:layout_constraintEnd_toEndOf="@id/event_cover"
-        />
-    <ImageView
         android:id="@+id/event_info"
         android:layout_width="match_parent"
         android:layout_height="120dp"

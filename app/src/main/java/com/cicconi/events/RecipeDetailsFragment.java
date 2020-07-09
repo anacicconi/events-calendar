@@ -1,38 +1,12 @@
 package com.cicconi.events;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import com.cicconi.events.viewmodel.RecipeDetailsViewModel;
-import com.cicconi.events.viewmodel.RecipeDetailsViewModelFactory;
-import com.cicconi.events.widget.RecipeAppWidget;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import java.util.List;
 
 public class RecipeDetailsFragment extends Fragment { //implements StepAdapter.StepClickListener {
 
     //private static final String TAG = RecipeDetailsFragment.class.getSimpleName();
     //
-    //private RecipeDetailsViewModel mViewModel;
+    //private EventDetailsViewModel mViewModel;
     //private Recipe mRecipe;
     //
     //private ScrollView mRecipeLayout;
@@ -98,8 +72,8 @@ public class RecipeDetailsFragment extends Fragment { //implements StepAdapter.S
     //}
     //
     //private void showRecipeView() {
-    //    RecipeDetailsViewModelFactory factory = new RecipeDetailsViewModelFactory(requireContext(), mRecipe);
-    //    mViewModel = new ViewModelProvider(this, factory).get(RecipeDetailsViewModel.class);
+    //    EventDetailsViewModelFactory factory = new EventDetailsViewModelFactory(requireContext(), mRecipe);
+    //    mViewModel = new ViewModelProvider(this, factory).get(EventDetailsViewModel.class);
     //
     //    mRecipeTitle.setText(mRecipe.getName());
     //

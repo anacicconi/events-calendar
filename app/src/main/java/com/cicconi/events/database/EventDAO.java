@@ -12,13 +12,13 @@ import java.util.List;
 @Dao
 public interface EventDAO {
 
-    @Query("SELECT * FROM event ORDER BY id")
+    @Query("SELECT * FROM event ORDER BY date_start ASC")
     LiveData<List<Event>> loadAllEvents();
 
-    @Query("SELECT * FROM event WHERE favorite = 1 ORDER BY id")
+    @Query("SELECT * FROM event WHERE favorite = 1 ORDER BY date_start ASC")
     LiveData<List<Event>> loadFavoriteEvents();
 
-    @Query("SELECT * FROM event WHERE favorite = 1 ORDER BY id")
+    @Query("SELECT * FROM event WHERE favorite = 1 ORDER BY date_start ASC")
     List<Event> loadFavoriteEventsForWidget();
 
     // Not used on a view so no need for a live data

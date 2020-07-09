@@ -89,6 +89,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"
                     android:visibility="gone"
+                    tools:visibility="visible"
                     />
                 <TextView
                     android:id="@+id/event_description"
@@ -100,6 +101,8 @@
                     app:layout_constraintStart_toStartOf="@id/event_title"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     />
                 <TextView
                     android:id="@+id/event_address_label"
@@ -112,6 +115,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"
                     android:visibility="gone"
+                    tools:visibility="visible"
                     />
                 <TextView
                     android:id="@+id/event_address"
@@ -123,6 +127,8 @@
                     app:layout_constraintStart_toStartOf="@id/event_title"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     />
                 <TextView
                     android:id="@+id/event_transportation_label"
@@ -135,6 +141,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"
                     android:visibility="gone"
+                    tools:visibility="visible"
                     />
                 <TextView
                     android:id="@+id/event_transportation"
@@ -146,6 +153,8 @@
                     app:layout_constraintStart_toStartOf="@id/event_title"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     />
                 <TextView
                     android:id="@+id/event_contact_label"
@@ -158,6 +167,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"
                     android:visibility="gone"
+                    tools:visibility="visible"
                     />
                 <TextView
                     android:id="@+id/event_contact_name"
@@ -169,6 +179,8 @@
                     app:layout_constraintStart_toStartOf="@id/event_title"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     />
                 <TextView
                     android:id="@+id/event_contact_url"
@@ -180,28 +192,8 @@
                     app:layout_constraintStart_toStartOf="@id/event_title"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"
-                    />
-                <TextView
-                    android:id="@+id/event_contact_facebook"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    tools:text="https://www.facebook.com/LaConciergerieDeParis/"
-                    android:layout_marginTop="@dimen/margin_small"
-                    app:layout_constraintTop_toBottomOf="@id/event_contact_url"
-                    app:layout_constraintStart_toStartOf="@id/event_title"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintEnd_toEndOf="@id/event_favorite"
-                    />
-                <TextView
-                    android:id="@+id/event_contact_phone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    tools:text="0153406080"
-                    android:layout_marginTop="@dimen/margin_small"
-                    app:layout_constraintTop_toBottomOf="@id/event_contact_facebook"
-                    app:layout_constraintStart_toStartOf="@id/event_title"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintEnd_toEndOf="@id/event_favorite"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     />
                 <TextView
                     android:id="@+id/event_contact_email"
@@ -210,11 +202,39 @@
                     tools:text="la-conciergerie@monuments-nationaux.fr"
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginBottom="@dimen/margin_medium"
-                    app:layout_constraintTop_toBottomOf="@id/event_contact_phone"
+                    app:layout_constraintTop_toBottomOf="@id/event_contact_url"
+                    app:layout_constraintStart_toStartOf="@id/event_title"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="@id/event_favorite"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    />
+                <TextView
+                    android:id="@+id/event_contact_facebook"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="https://www.facebook.com/LaConciergerieDeParis/"
+                    android:layout_marginTop="@dimen/margin_small"
+                    app:layout_constraintTop_toBottomOf="@id/event_contact_email"
+                    app:layout_constraintStart_toStartOf="@id/event_title"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="@id/event_favorite"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    />
+                <TextView
+                    android:id="@+id/event_contact_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="0153406080"
+                    android:layout_marginTop="@dimen/margin_small"
+                    app:layout_constraintTop_toBottomOf="@id/event_contact_facebook"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/event_title"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

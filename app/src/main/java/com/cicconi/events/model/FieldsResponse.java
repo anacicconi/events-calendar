@@ -1,5 +1,6 @@
 package com.cicconi.events.model;
 
+import java.util.Date;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -14,13 +15,13 @@ public class FieldsResponse {
     private Integer pmr;
     @SerializedName("date_end")
     @Expose
-    private String dateEnd;
+    private Date dateEnd;
     @SerializedName("deaf")
     @Expose
     private Integer deaf;
     @SerializedName("updated_at")
     @Expose
-    private String updatedAt;
+    private Date updatedAt;
     @SerializedName("access_type")
     @Expose
     private String accessType;
@@ -47,7 +48,7 @@ public class FieldsResponse {
     private String coverAlt;
     @SerializedName("date_start")
     @Expose
-    private String dateStart;
+    private Date dateStart;
     @SerializedName("address_name")
     @Expose
     private String addressName;
@@ -134,11 +135,11 @@ public class FieldsResponse {
         this.pmr = pmr;
     }
 
-    public String getDateEnd() {
+    public Date getDateEnd() {
         return dateEnd;
     }
 
-    public void setDateEnd(String dateEnd) {
+    public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
     }
 
@@ -150,11 +151,11 @@ public class FieldsResponse {
         this.deaf = deaf;
     }
 
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -222,11 +223,11 @@ public class FieldsResponse {
         this.coverAlt = coverAlt;
     }
 
-    public String getDateStart() {
+    public Date getDateStart() {
         return dateStart;
     }
 
-    public void setDateStart(String dateStart) {
+    public void setDateStart(Date dateStart) {
         this.dateStart = dateStart;
     }
 

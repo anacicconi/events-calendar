@@ -1,6 +1,8 @@
 package com.cicconi.events.adapter;
 
 import android.content.Context;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cicconi.events.R;
 import com.cicconi.events.database.Event;
+import com.google.android.material.tabs.TabLayout;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import timber.log.Timber;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapterViewHolder> {
 
@@ -43,15 +52,26 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     @Override
     public void onBindViewHolder(@NonNull EventAdapterViewHolder holder, int position) {
         String title = mEventData.get(position).getTitle();
+        Long date = mEventData.get(position).getDateStart();
+        String type = mEventData.get(position).getAccessType();
 
         if(!title.isEmpty()) {
-            holder.mName.setText(title);
+            holder.mTitle.setText(title);
         } else {
-            holder.mName.setText(R.string.unknown);
+            holder.mTitle.setText(R.string.unknown);
+        }
+
+        String finalDate = formatDate(date);
+        holder.mDate.setText(finalDate);
+
+        if(!type.isEmpty()) {
+            holder.mType.setText(type);
+        } else {
+            holder.mType.setText(R.string.unknown);
         }
 
         if(mEventData.get(position).isFavorite()) {
-            holder.mFavorite.setColorFilter(mContext.getResources().getColor(R.color.colorFavorite));
+            holder.mFavorite.setColorFilter(mContext.getResources().getColor(R.color.colorAccent));
         }
     }
 
@@ -61,15 +81,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     }
 
     public class EventAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final TextView mName;
-        final TextView mServings;
+        final TextView mTitle;
+        final TextView mDate;
+        final TextView mType;
         final ImageView mFavorite;
 
         EventAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.mName = itemView.findViewById(R.id.tv_name);
-            this.mServings = itemView.findViewById(R.id.tv_servings_value);
-            this.mFavorite = itemView.findViewById(R.id.iv_favorite);
+            this.mTitle = itemView.findViewById(R.id.event_title);
+            this.mDate = itemView.findViewById(R.id.event_date);
+            this.mType = itemView.findViewById(R.id.event_type);
+            this.mFavorite = itemView.findViewById(R.id.event_favorite);
             itemView.setOnClickListener(this);
         }
 
@@ -82,5 +104,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
     public interface EventClickListener {
         void onEventItemClick(Event event);
+    }
+
+    private String formatDate(long time) {
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        cal.setTimeInMillis(time * 1000);
+
+        return DateFormat.format("dd-MM-yyyy", cal).toString();
     }
 }

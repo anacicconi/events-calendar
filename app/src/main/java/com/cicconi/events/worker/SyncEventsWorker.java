@@ -13,11 +13,10 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class SyncEventsWorker extends Worker {
-
-    private static final String TAG = SyncEventsWorker.class.getSimpleName();
-
+    
     private EventRepository mEventRepository;
     private CompositeDisposable mCompositeDisposable;
 
@@ -31,15 +30,12 @@ public class SyncEventsWorker extends Worker {
     @Override
     public Result doWork() {
         Disposable disposable = getRemoteEvents()
-            .doOnNext(i -> Log.d(TAG, String.format("Thread doWork: %s", Thread.currentThread().getName())))
+            .doOnNext(i -> Timber.d("Thread doWork: %s", Thread.currentThread().getName()))
             .subscribe(eventResponse -> {
-                    for (RecordResponse recordResponse: eventResponse.getRecords()) {
-                        getLocalEvent(recordResponse);
-                    }
-                },
-                Throwable::printStackTrace,
-                () -> Log.d(TAG, "Synch completed")
-            );
+                for (RecordResponse recordResponse : eventResponse.getRecords()) {
+                    getLocalEvent(recordResponse);
+                }
+            }, Throwable::printStackTrace, () -> Timber.d("Synch completed"));
 
         mCompositeDisposable.add(disposable);
 
@@ -57,14 +53,11 @@ public class SyncEventsWorker extends Worker {
     private void getLocalEvent(RecordResponse recordResponse) {
         Disposable disposable = mEventRepository.getEventByApiId(recordResponse.getRecordid())
             .doOnError(error -> addEvent(recordResponse))
-            .subscribe(
-                localEvent -> {
-                    if(localEvent == null) {
-                        addEvent(recordResponse);
-                    }
-                },
-                error -> Log.d(TAG, "New event received")
-            );
+            .subscribe(localEvent -> {
+                if (localEvent == null) {
+                    addEvent(recordResponse);
+                }
+            }, error -> Timber.d("New event received"));
 
         mCompositeDisposable.add(disposable);
     }
@@ -75,7 +68,7 @@ public class SyncEventsWorker extends Worker {
 
     private void addEvent(RecordResponse recordResponse) {
         Disposable disposable = mEventRepository.addEvent(recordResponse.toEvent())
-            .subscribe(eventId -> Log.d(TAG, "New event added"), Throwable::printStackTrace);
+            .subscribe(eventId -> Timber.d("New event added"), Throwable::printStackTrace);
 
         mCompositeDisposable.add(disposable);
     }

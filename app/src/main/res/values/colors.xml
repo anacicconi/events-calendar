@@ -8,5 +8,5 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorFavorite">#FFC107</color>
+    <color name="event_info_background_color">#80000000</color>
 </resources>

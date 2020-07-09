@@ -20,7 +20,7 @@ import com.cicconi.events.adapter.EventAdapter;
 import com.cicconi.events.database.Event;
 import com.cicconi.events.viewmodel.MainViewModel;
 import com.cicconi.events.worker.SyncEventsWorker;
-//import com.facebook.stetho.Stetho;
+import com.facebook.stetho.Stetho;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Used to debug database content
-        //Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this);
 
         synchronizeEvents();
 

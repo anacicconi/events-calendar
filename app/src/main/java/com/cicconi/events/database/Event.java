@@ -24,7 +24,7 @@ public class Event implements Serializable {
     @ColumnInfo(name = "cover_alt")
     private String coverAlt;
     @ColumnInfo(name = "date_start")
-    private String dateStart;
+    private Long dateStart;
     @ColumnInfo(name = "address_name")
     private String addressName;
     private String description;
@@ -59,7 +59,7 @@ public class Event implements Serializable {
 
     @Ignore
     public Event(String apiId, String accessType, String addressStreet, Double latitude, Double longitude,
-        String category, String title, String coverAlt, String dateStart, String addressName, String description,
+        String category, String title, String coverAlt, Long dateStart, String addressName, String description,
         String contactMail, String leadText, String coverUrl, String addressCity, String priceType, String url,
         String dateDescription, String addressZipcode, String priceDetail, String contactPhone, String contactUrl,
         String accessMail, String contactFacebook, String accessPhone, Boolean favorite) {
@@ -92,7 +92,7 @@ public class Event implements Serializable {
     }
 
     public Event(int id, String apiId, String accessType, String addressStreet, Double latitude, Double longitude,
-        String category, String title, String coverAlt, String dateStart, String addressName, String description,
+        String category, String title, String coverAlt, Long dateStart, String addressName, String description,
         String contactMail, String leadText, String coverUrl, String addressCity, String priceType, String url,
         String dateDescription, String addressZipcode, String priceDetail, String contactPhone, String contactUrl,
         String accessMail, String contactFacebook, String accessPhone, Boolean favorite) {
@@ -197,11 +197,11 @@ public class Event implements Serializable {
         this.coverAlt = coverAlt;
     }
 
-    public String getDateStart() {
+    public Long getDateStart() {
         return dateStart;
     }
 
-    public void setDateStart(String dateStart) {
+    public void setDateStart(Long dateStart) {
         this.dateStart = dateStart;
     }
 

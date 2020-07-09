@@ -3,6 +3,8 @@ package com.cicconi.events.model;
 import com.cicconi.events.database.Event;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class RecordResponse {
 
@@ -63,6 +65,7 @@ public class RecordResponse {
     }
 
     public Event toEvent() {
+
         return new Event(
             this.recordid,
             this.fields.getAccessType(),
@@ -72,7 +75,7 @@ public class RecordResponse {
             this.fields.getCategory(),
             this.fields.getTitle(),
             this.fields.getCoverAlt(),
-            this.fields.getDateStart(),
+            this.fields.getDateStart().getTime(),
             this.fields.getAddressName(),
             this.fields.getDescription(),
             this.fields.getContactMail(),

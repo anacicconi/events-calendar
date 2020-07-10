@@ -8,6 +8,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.work.Constraints;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
     private EventAdapter mEventAdapter;
     private MainViewModel mViewModel;
     private ActivityMainBinding mBinding;
+    private boolean isTablet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        final int columns = getResources().getInteger(R.integer.main_recipe_list_columns);
+        if(findViewById(R.id.event_details_fragment) != null) { isTablet = true; }
+
+        final int columns = getResources().getInteger(R.integer.main_events_list_columns);
         GridLayoutManager layoutManager = new GridLayoutManager(
             this, columns, GridLayoutManager.VERTICAL, false);
         mBinding.recyclerviewEvents.setLayoutManager(layoutManager);
@@ -93,6 +98,10 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         if (!events.isEmpty()) {
             showEventView();
             mEventAdapter.setEventData(events);
+
+            if(isTablet) {
+                loadEventDetails(events.get(0));
+            }
         } else {
             showNoResultsMessage();
         }
@@ -118,6 +127,24 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
 
     @Override
     public void onEventItemClick(Event event) {
+        if(isTablet) {
+            loadEventDetails(event);
+        } else {
+            navigateToEventDetails(event);
+        }
+    }
+
+    private void loadEventDetails(Event event) {
+        EventDetailsFragment eventDetailsFragment = EventDetailsFragment.newInstance(event);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.replace(R.id.event_details_fragment, eventDetailsFragment);
+        fragmentTransaction.commit();
+    }
+
+    private void navigateToEventDetails(Event event) {
         Intent eventDetailsActivityIntent = new Intent(this, EventDetailsActivity.class);
         eventDetailsActivityIntent.putExtra(Constants.EXTRA_EVENT, event);
         startActivity(eventDetailsActivityIntent);

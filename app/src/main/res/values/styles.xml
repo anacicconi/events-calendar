@@ -17,12 +17,14 @@
     </style>
 
     <style name="detail_label">
-        <item name="android:textSize">@dimen/subtitle_text</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="android:textColor">?colorSecondaryVariant</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="detail_value">
-        <item name="android:textSize">@dimen/body_text</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="android:textColor">?colorOnPrimary</item>
     </style>
 
 </resources>

@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 tools:listitem="@layout/item_event"
-                android:layout_weight="15"
+                android:layout_weight="1"
                 />
 
             <TextView
@@ -49,7 +49,6 @@
                 android:id="@+id/ad_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/banner_ad_unit_id"
                 />

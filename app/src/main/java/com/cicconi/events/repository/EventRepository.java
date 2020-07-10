@@ -18,10 +18,12 @@ public class EventRepository {
         mDb = AppDatabase.getInstance(context);
     }
 
-    public LiveData<List<Event>> getLocalEvents(CategoryType categoryType) {
+    public LiveData<List<Event>> getLocalEvents(CategoryType categoryType, Long date) {
         switch (categoryType) {
             case FAVORITE:
                 return mDb.eventDAO().loadFavoriteEvents();
+            case DATE:
+                return mDb.eventDAO().loadEventsOnDate(date);
             default:
                 return mDb.eventDAO().loadAllEvents();
         }

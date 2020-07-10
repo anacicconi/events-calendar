@@ -16,23 +16,26 @@ public class MainViewModel extends AndroidViewModel {
 
     private final MutableLiveData<CategoryType> category = new MutableLiveData();
     private LiveData<List<Event>> events;
+    private Long date;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
         Context context = application.getApplicationContext();
         EventRepository eventRepository = new EventRepository(context);
 
-        //recipes = recipeRepository.getLocalRecipes();
-        // The recipes will be returned based on the value set for category
+        // The events will be returned based on the value set for category and the date
         category.setValue(CategoryType.ALL);
-        events = Transformations.switchMap(category, eventRepository::getLocalEvents);
+        events = Transformations.switchMap(category, categoryType -> eventRepository.getLocalEvents(categoryType, date));
     }
 
     public LiveData<List<Event>> getEvents() {
         return events;
     }
 
-    public void setCategory(CategoryType categoryType) {
+    public void setCategory(CategoryType categoryType, Long dateFilter) {
+        if(dateFilter != null) {
+            date = dateFilter;
+        }
         category.setValue(categoryType);
     }
 }

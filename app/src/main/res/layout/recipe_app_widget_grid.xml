@@ -13,7 +13,7 @@
         android:background="?colorPrimary"
         android:padding="@dimen/padding_small"
         android:textColor="?colorOnSecondary"
-        android:text="@string/my_favorite_recipes"
+        android:text="@string/my_favorite_events"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         />
     <FrameLayout
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="@string/no_favorite_recipes"
+                android:text="@string/no_favorite_events"
                 />
         </LinearLayout>
     </FrameLayout>

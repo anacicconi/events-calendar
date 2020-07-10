@@ -1,4 +1,4 @@
-package com.cicconi.events.paid;
+package com.cicconi.events;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -164,18 +164,29 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_recipes_all) {
-            mViewModel.setCategory(CategoryType.ALL);
+        if (id == R.id.action_events_all) {
+            mViewModel.setCategory(CategoryType.ALL, null);
 
             return true;
         }
 
-        if (id == R.id.action_recipes_favorite) {
-            mViewModel.setCategory(CategoryType.FAVORITE);
+        if (id == R.id.action_events_favorite) {
+            mViewModel.setCategory(CategoryType.FAVORITE, null);
+
+            return true;
+        }
+
+        if (id == R.id.action_events_date) {
+            DialogFragment newFragment = new DatePickerFragment();
+            newFragment.show(getSupportFragmentManager(), "datePicker");
 
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onDateSet(Long timestamp) {
+        mViewModel.setCategory(CategoryType.DATE, timestamp);
     }
 }

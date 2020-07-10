@@ -32,6 +32,37 @@ android {
     android {
         dataBinding.enabled = true
     }
+    flavorDimensions "version"
+    productFlavors {
+        paid {
+            dimension "version"
+            applicationIdSuffix ".paid"
+            versionNameSuffix "-paid"
+        }
+        free {
+            dimension "version"
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+    }
+    sourceSets {
+        paid {
+            res {
+                srcDirs 'src/paid/res'
+            }
+            java {
+                srcDirs 'src/paid/java'
+            }
+        }
+        free {
+            res {
+                srcDirs 'src/free/res'
+            }
+            java {
+                srcDirs 'src/free/java'
+            }
+        }
+    }
 }
 
 dependencies {
@@ -94,4 +125,7 @@ dependencies {
 
     // Images
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    // Add ads only for free version
+    freeImplementation 'com.google.android.gms:play-services-ads:19.2.0'
 }

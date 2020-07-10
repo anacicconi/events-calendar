@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +22,8 @@ import com.cicconi.events.databinding.ActivityMainBinding;
 import com.cicconi.events.viewmodel.MainViewModel;
 import com.cicconi.events.worker.SyncEventsWorker;
 import com.facebook.stetho.Stetho;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -60,13 +63,15 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
 
         loadEvents();
 
-        if (BuildConfig.FLAVOR.equals("free")) {
-            MobileAds.initialize(this, new OnInitializationCompleteListener() {
-                @Override
-                public void onInitializationComplete(InitializationStatus initializationStatus) {
-                }
-            });
-        }
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        AdView mAdView = mBinding.adView;
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void synchronizeEvents() {
@@ -94,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         Intent intent = getIntent();
         if (intent.hasExtra(Constants.EXTRA_CATEGORY_TYPE)) {
             CategoryType categoryType = (CategoryType) intent.getSerializableExtra(Constants.EXTRA_CATEGORY_TYPE);
-            mViewModel.setCategory(categoryType);
+            mViewModel.setCategory(categoryType, null);
         }
     }
 
@@ -173,18 +178,29 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_recipes_all) {
-            mViewModel.setCategory(CategoryType.ALL);
+        if (id == R.id.action_events_all) {
+            mViewModel.setCategory(CategoryType.ALL, null);
 
             return true;
         }
 
-        if (id == R.id.action_recipes_favorite) {
-            mViewModel.setCategory(CategoryType.FAVORITE);
+        if (id == R.id.action_events_favorite) {
+            mViewModel.setCategory(CategoryType.FAVORITE, null);
+
+            return true;
+        }
+
+        if (id == R.id.action_events_date) {
+            DialogFragment newFragment = new DatePickerFragment();
+            newFragment.show(getSupportFragmentManager(), "datePicker");
 
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onDateSet(Long timestamp) {
+        mViewModel.setCategory(CategoryType.DATE, timestamp);
     }
 }

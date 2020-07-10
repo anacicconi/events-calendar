@@ -18,6 +18,9 @@ public interface EventDAO {
     @Query("SELECT * FROM event WHERE favorite = 1 ORDER BY date_start ASC")
     LiveData<List<Event>> loadFavoriteEvents();
 
+    @Query("SELECT * FROM event WHERE date_start < :date and date_end > :date ORDER BY date_start ASC")
+    LiveData<List<Event>> loadEventsOnDate(Long date);
+
     @Query("SELECT * FROM event WHERE favorite = 1 ORDER BY date_start ASC")
     List<Event> loadFavoriteEventsForWidget();
 

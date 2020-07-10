@@ -3,15 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
     <item
-        android:id="@+id/action_recipes_all"
+        android:id="@+id/action_events_all"
         android:orderInCategory="1"
-        android:title="@string/action_recipes_all"
+        android:title="@string/action_events_all"
         app:showAsAction="ifRoom"
         />
     <item
-        android:id="@+id/action_recipes_favorite"
+        android:id="@+id/action_events_favorite"
         android:orderInCategory="2"
-        android:title="@string/action_recipes_favorite"
+        android:title="@string/action_events_favorite"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/action_events_date"
+        android:orderInCategory="3"
+        android:title="@string/action_events_date"
         app:showAsAction="ifRoom"
         />
 </menu>

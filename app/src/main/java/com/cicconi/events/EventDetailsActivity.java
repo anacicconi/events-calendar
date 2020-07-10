@@ -28,14 +28,14 @@ public class EventDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_recipes_all) {
+        if (id == R.id.action_events_all) {
             Intent mainActivityIntent = new Intent(this, MainActivity.class);
             startActivity(mainActivityIntent);
 
             return true;
         }
 
-        if (id == R.id.action_recipes_favorite) {
+        if (id == R.id.action_events_favorite) {
             Intent mainActivityIntent = new Intent(this, MainActivity.class);
             mainActivityIntent.putExtra(Constants.EXTRA_CATEGORY_TYPE, CategoryType.FAVORITE);
             startActivity(mainActivityIntent);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.core.app.ShareCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -102,6 +103,7 @@ public class EventDetailsFragment extends Fragment {
         mBinding.eventDetailsLayout.setVisibility(View.VISIBLE);
         mBinding.errorMessage.setVisibility(View.GONE);
         handleFavoriteIcon();
+        handleShareIcon();
 
         Picasso.with(requireActivity())
             .load(mEvent.getCoverUrl())
@@ -170,6 +172,21 @@ public class EventDetailsFragment extends Fragment {
             mBinding.eventContactPhone.setVisibility(View.VISIBLE);
             mBinding.eventContactPhone.setText(mEvent.getContactPhone());
         }
+    }
+
+    private void handleShareIcon() {
+        mBinding.eventShare.setOnClickListener(view -> {
+            String mimeType = "text/plain";
+            String textToShare =
+                String.format("Je pense que cet événement va vous intérésser: %s. Pour en savoir plus: %s",
+                    mEvent.getTitle(), mEvent.getContactUrl());
+
+            ShareCompat.IntentBuilder shareCompat = ShareCompat.IntentBuilder.from(requireActivity());
+            shareCompat
+                .setType(mimeType)
+                .setText(textToShare)
+                .startChooser();
+        });
     }
 
     private void handleFavoriteIcon() {

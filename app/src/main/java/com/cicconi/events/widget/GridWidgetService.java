@@ -1,14 +1,11 @@
-package com.cicconi.events.widget;//package com.cicconi.events.widget;
-//
-//import android.content.Intent;
-//import android.widget.RemoteViewsService;
-//
-//public class GridWidgetService extends RemoteViewsService {
-//    @Override
-//    public RemoteViewsFactory onGetViewFactory(Intent intent) {
-//        return new GridRemoteViewsFactory(this.getApplicationContext());
-//    }
-//}
+package com.cicconi.events.widget;
 
-public class GridWidgetService{
+import android.content.Intent;
+import android.widget.RemoteViewsService;
+
+public class GridWidgetService extends RemoteViewsService {
+    @Override
+    public RemoteViewsFactory onGetViewFactory(Intent intent) {
+        return new GridRemoteViewsFactory(this.getApplicationContext());
+    }
 }

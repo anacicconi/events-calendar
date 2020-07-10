@@ -21,8 +21,8 @@ public interface EventDAO {
     @Query("SELECT * FROM event WHERE date_start < :date and date_end > :date ORDER BY date_start ASC")
     LiveData<List<Event>> loadEventsOnDate(Long date);
 
-    @Query("SELECT * FROM event WHERE favorite = 1 ORDER BY date_start ASC")
-    List<Event> loadFavoriteEventsForWidget();
+    @Query("SELECT * FROM event WHERE date_start < :date and date_end > :date ORDER BY date_start ASC")
+    List<Event> loadTodayEventsForWidget(long date);
 
     // Not used on a view so no need for a live data
     @Query("SELECT * FROM event WHERE api_id = :apiId")

@@ -12,14 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name=".widget.RecipeAppWidget">
+        <receiver android:name=".widget.EventAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/recipe_app_widget_info" />
+                android:resource="@xml/event_app_widget_info" />
         </receiver>
 
         <meta-data

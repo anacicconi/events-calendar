@@ -8,6 +8,7 @@ import com.cicconi.events.database.Event;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class EventRepository {
@@ -49,7 +50,8 @@ public class EventRepository {
             .onErrorComplete();
     }
 
-    public List<Event> getFavoriteEventsForWidget() {
-        return mDb.eventDAO().loadFavoriteEventsForWidget();
+    public List<Event> getTodayEventsForWidget() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return mDb.eventDAO().loadTodayEventsForWidget(timestamp.getTime());
     }
 }

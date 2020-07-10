@@ -8,20 +8,27 @@
     android:layout_marginTop="@dimen/margin_medium"
     android:layout_marginBottom="@dimen/margin_medium"
     >
+<!--    <ImageView-->
+<!--        android:id="@+id/event_cover"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="150dp"-->
+<!--        tools:src="@drawable/placeholder"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        />-->
     <TextView
-        android:id="@+id/tv_recipe_title"
+        android:id="@+id/event_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/appwidget_text"
         android:layout_gravity="start"
-        tools:text="Nutella Pie"
+        tools:text="Puce Muse présente: Concert Jardinal de l'été"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         />
     <TextView
-        android:id="@+id/tv_ingredients"
+        android:id="@+id/event_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Graham Cracker crumbs, unsalted butter, melted, granulated sugar, salt, vanilla..."
+        tools:text="gratuit"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
         />
 </LinearLayout>

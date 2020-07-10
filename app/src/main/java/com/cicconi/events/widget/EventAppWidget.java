@@ -9,10 +9,7 @@ import android.widget.RemoteViews;
 import com.cicconi.events.EventDetailsActivity;
 import com.cicconi.events.R;
 
-/**
- * Implementation of App Widget functionality.
- */
-public class RecipeAppWidget extends AppWidgetProvider {
+public class EventAppWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -31,7 +28,7 @@ public class RecipeAppWidget extends AppWidgetProvider {
 
     static RemoteViews getGridWidget(Context context, int appWidgetId) {
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_app_widget_grid);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.event_app_widget_grid);
 
         Intent intent = new Intent(context, GridWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);

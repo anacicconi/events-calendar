@@ -79,14 +79,14 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
             .setRequiresCharging(true)
             .build();
 
-        PeriodicWorkRequest syncRecipesWorkRequest =
+        PeriodicWorkRequest syncEventsWorkRequest =
             new PeriodicWorkRequest.Builder(SyncEventsWorker.class, 1, TimeUnit.DAYS)
                 //.setConstraints(constraints)
                 .build();
 
         WorkManager
             .getInstance(this)
-            .enqueue(syncRecipesWorkRequest);
+            .enqueue(syncEventsWorkRequest);
     }
 
     private void loadEvents() {

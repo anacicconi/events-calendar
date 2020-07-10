@@ -199,11 +199,11 @@ public class EventDetailsFragment extends Fragment {
 
     private void onFavoriteIconClick(boolean isFavorite) {
         mBinding.eventFavorite.setOnClickListener(view -> {
-            updateRecipeFavoriteStatus(isFavorite);
+            updateEventFavoriteStatus(isFavorite);
         });
     }
 
-    private void updateRecipeFavoriteStatus(boolean isFavorite) {
+    private void updateEventFavoriteStatus(boolean isFavorite) {
         boolean newFavoriteStatus = !isFavorite;
         Disposable disposable = mViewModel.onFavoriteStatusUpdated(newFavoriteStatus)
             .observeOn(AndroidSchedulers.mainThread())

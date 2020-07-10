@@ -207,9 +207,9 @@ public class EventDetailsFragment extends Fragment {
 
     private void setFavoriteIconColor(Boolean isFavorite) {
         if(isFavorite) {
-            mBinding.eventFavorite.setColorFilter(ColorHandler.getFavoriteIconColor(requireContext()));
+            mBinding.eventFavorite.setColorFilter(ColorHandler.getFavoriteIconColor(mBinding.eventFavorite.getContext()));
         } else {
-            mBinding.eventFavorite.setColorFilter(ColorHandler.getNonFavoriteIconColor(requireContext()));
+            mBinding.eventFavorite.setColorFilter(ColorHandler.getNonFavoriteIconColor(mBinding.eventFavorite.getContext()));
         }
     }
 

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.work.Constraints;

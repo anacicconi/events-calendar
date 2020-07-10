@@ -10,7 +10,6 @@ import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.work.Constraints;
@@ -22,6 +21,9 @@ import com.cicconi.events.databinding.ActivityMainBinding;
 import com.cicconi.events.viewmodel.MainViewModel;
 import com.cicconi.events.worker.SyncEventsWorker;
 import com.facebook.stetho.Stetho;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import timber.log.Timber;
@@ -57,6 +59,14 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         loadEvents();
+
+        if (BuildConfig.FLAVOR.equals("free")) {
+            MobileAds.initialize(this, new OnInitializationCompleteListener() {
+                @Override
+                public void onInitializationComplete(InitializationStatus initializationStatus) {
+                }
+            });
+        }
     }
 
     private void synchronizeEvents() {

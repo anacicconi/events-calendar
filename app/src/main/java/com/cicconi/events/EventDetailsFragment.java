@@ -122,8 +122,14 @@ public class EventDetailsFragment extends Fragment {
             mBinding.eventTitle.setText(mEvent.getTitle());
         }
 
-        String finalDate = String.format("%s - %s", DateFormatter.format(requireContext(), mEvent.getDateStart()),
-            DateFormatter.format(requireContext(), mEvent.getDateEnd()));
+        String finalDate;
+        try {
+            finalDate = DateFormatter.format(mEvent.getDateStart(), mEvent.getDateEnd());
+        } catch(Exception ex) {
+            Timber.i("Not able to parse event dates: %s - %s", mEvent.getDateStart(), mEvent.getDateEnd());
+            finalDate = getString(R.string.unknown);
+        }
+
         mBinding.eventDate.setText(finalDate);
 
         if(mEvent.getEventPriceType() == EventPriceType.FREE) {

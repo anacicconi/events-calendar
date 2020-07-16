@@ -64,11 +64,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
 
         loadEvents();
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
+        MobileAds.initialize(this, (OnInitializationCompleteListener) initializationStatus -> {});
 
         AdView mAdView = mBinding.adView;
         AdRequest adRequest = new AdRequest.Builder().build();

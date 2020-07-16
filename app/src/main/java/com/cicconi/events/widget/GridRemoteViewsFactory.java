@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
 public class GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -55,8 +56,15 @@ public class GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
 
         RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.event_app_widget_grid_item);
         views.setTextViewText(R.id.event_title, todayEvent.getTitle());
-        String finalDate = String.format("%s - %s", DateFormatter.format(mContext, todayEvent.getDateStart()),
-            DateFormatter.format(mContext, todayEvent.getDateEnd()));
+
+        String finalDate;
+        try {
+            finalDate = DateFormatter.format(todayEvent.getDateStart(), todayEvent.getDateEnd());
+        } catch(Exception ex) {
+            Timber.i("Not able to parse event dates: %s - %s", todayEvent.getDateStart(), todayEvent.getDateEnd());
+            finalDate = mContext.getResources().getString(R.string.unknown);
+        }
+
         views.setTextViewText(R.id.event_date, finalDate);
         views.setTextViewText(R.id.event_type, todayEvent.getPriceType());
         views.setTextViewText(R.id.event_zip_code, todayEvent.getAddressZipcode());

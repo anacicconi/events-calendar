@@ -55,8 +55,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     @Override
     public void onBindViewHolder(@NonNull EventAdapterViewHolder holder, int position) {
         String title = mEventData.get(position).getTitle();
-        Long dateStart = mEventData.get(position).getDateStart();
-        Long dateEnd = mEventData.get(position).getDateEnd();
+        Long startDate = mEventData.get(position).getDateStart();
+        Long endDate = mEventData.get(position).getDateEnd();
         String priceType = mEventData.get(position).getPriceType();
         String zipCode = mEventData.get(position).getAddressZipcode();
         String imageUrl = mEventData.get(position).getCoverUrl();
@@ -67,8 +67,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             holder.mTitle.setText(R.string.unknown);
         }
 
-        String finalDate = String.format("%s - %s", DateFormatter.format(mContext, dateStart),
-            DateFormatter.format(mContext, dateEnd));
+        String finalDate;
+        try {
+            finalDate = DateFormatter.format(startDate, endDate);
+        } catch(Exception ex) {
+            Timber.i("Not able to parse event dates: %s - %s", startDate, endDate);
+            finalDate = mContext.getResources().getString(R.string.unknown);
+        }
         holder.mDate.setText(finalDate);
 
         if(priceType != null && !priceType.isEmpty()) {

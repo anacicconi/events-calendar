@@ -8,16 +8,6 @@
         <item>Spectacles</item>
     </string-array>
     <string-array name="zip_codes">
-        <item>60300</item>
-        <item>60410</item>
-        <item>60415</item>
-        <item>60500</item>
-        <item>60520</item>
-        <item>60560</item>
-        <item>60700</item>
-        <item>60810</item>
-        <item>60820</item>
-        <item>74012</item>
         <item>75000</item>
         <item>75001</item>
         <item>75002</item>
@@ -39,52 +29,5 @@
         <item>75018</item>
         <item>75019</item>
         <item>75020</item>
-        <item>75116</item>
-        <item>75186</item>
-        <item>77300</item>
-        <item>77760</item>
-        <item>78100</item>
-        <item>78120</item>
-        <item>78190</item>
-        <item>78320</item>
-        <item>78460</item>
-        <item>78490</item>
-        <item>78600</item>
-        <item>78720</item>
-        <item>91210</item>
-        <item>91490</item>
-        <item>92000</item>
-        <item>92100</item>
-        <item>92200</item>
-        <item>92240</item>
-        <item>92330</item>
-        <item>92340</item>
-        <item>92370</item>
-        <item>92400</item>
-        <item>92932</item>
-        <item>93000</item>
-        <item>93100</item>
-        <item>93200</item>
-        <item>93210</item>
-        <item>93290</item>
-        <item>93290</item>
-        <item>93310</item>
-        <item>93380</item>
-        <item>93500</item>
-        <item>94000</item>
-        <item>94120</item>
-        <item>94270</item>
-        <item>94340</item>
-        <item>94400</item>
-        <item>95000</item>
-        <item>95270</item>
-        <item>95430</item>
-        <item>95450</item>
-        <item>95470</item>
-        <item>95510</item>
-        <item>95590</item>
-        <item>95750</item>
-        <item>95760</item>
-        <item>95780</item>
     </string-array>
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="zip_codes">
+        <item>75001</item>
+        <item>75002</item>
+        <item>75003</item>
+        <item>75004</item>
+        <item>75005</item>
+        <item>75006</item>
+        <item>75007</item>
+        <item>75008</item>
+        <item>75009</item>
+        <item>75010</item>
+        <item>75011</item>
+        <item>75012</item>
+        <item>75013</item>
+        <item>75014</item>
+        <item>75015</item>
+        <item>75016</item>
+        <item>75017</item>
+        <item>75018</item>
+        <item>75019</item>
+        <item>75020</item>
+    </string-array>
+</resources>

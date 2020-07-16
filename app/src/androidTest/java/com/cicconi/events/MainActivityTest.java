@@ -14,24 +14,18 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class) public class MainActivityTest {
-
-    private static final String RECIPE_NAME = "Brownies";
 
     @Rule public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void itemWithTextBrownies_isPresent() {
-        onView(withText(RECIPE_NAME)).check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void clickOnItem_opensRecipeDetailsActivity() {
-        onView(withId(R.id.recyclerview_recipes)).perform(
+    public void clickOnItem_opensDetailsActivity() {
+        onView(withId(R.id.recyclerview_events)).perform(
             RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-        // check that the text view displays the name of the correct recipe at the position 0
-        onView(withId(R.id.tv_recipe_title_recipe_details)).check(matches(withText(RECIPE_NAME)));
+        // check that the title is not empty
+        onView(withId(R.id.event_title)).check(matches(not(withText(""))));
     }
 }

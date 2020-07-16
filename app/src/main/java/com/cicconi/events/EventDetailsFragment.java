@@ -115,7 +115,9 @@ public class EventDetailsFragment extends Fragment {
             mBinding.eventTitle.setText(mEvent.getTitle());
         }
 
-        mBinding.eventDate.setText(DateFormatter.format(requireContext(), mEvent.getDateStart()));
+        String finalDate = String.format("%s - %s", DateFormatter.format(requireContext(), mEvent.getDateStart()),
+            DateFormatter.format(requireContext(), mEvent.getDateEnd()));
+        mBinding.eventDate.setText(finalDate);
 
         if(mEvent.getEventPriceType() == EventPriceType.FREE) {
             mBinding.eventPrice.setText(R.string.free);

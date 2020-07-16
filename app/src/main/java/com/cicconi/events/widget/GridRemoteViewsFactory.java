@@ -9,6 +9,7 @@ import com.cicconi.events.Constants;
 import com.cicconi.events.R;
 import com.cicconi.events.database.Event;
 import com.cicconi.events.repository.EventRepository;
+import com.cicconi.events.utils.DateFormatter;
 import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,18 +55,21 @@ public class GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
 
         RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.event_app_widget_grid_item);
         views.setTextViewText(R.id.event_title, todayEvent.getTitle());
+        String finalDate = String.format("%s - %s", DateFormatter.format(mContext, todayEvent.getDateStart()),
+            DateFormatter.format(mContext, todayEvent.getDateEnd()));
+        views.setTextViewText(R.id.event_date, finalDate);
         views.setTextViewText(R.id.event_type, todayEvent.getPriceType());
 
-        //try {
-        //    Bitmap bitmap = Picasso.with(mContext)
-        //        .load(todayEvent.getCoverUrl())
-        //        .placeholder(R.drawable.placeholder)
-        //        .error(R.drawable.placeholder)
-        //        .get();
-        //    views.setImageViewBitmap(R.id.event_cover, bitmap);
-        //} catch (IOException e) {
-        //    e.printStackTrace();
-        //}
+        try {
+            Bitmap bitmap = Picasso.with(mContext)
+                .load(todayEvent.getCoverUrl())
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder)
+                .get();
+            views.setImageViewBitmap(R.id.event_cover, bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Intent fillInIntent = new Intent();
         fillInIntent.putExtra(Constants.EXTRA_EVENT, todayEvent);

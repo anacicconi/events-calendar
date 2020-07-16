@@ -27,4 +27,9 @@
         <item name="android:textColor">?colorOnPrimary</item>
     </style>
 
+    <style name="detail_value_clickable">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="android:textColor">@color/clickable_text</item>
+    </style>
+
 </resources>

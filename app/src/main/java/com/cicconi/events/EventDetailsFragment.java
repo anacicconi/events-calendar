@@ -1,7 +1,10 @@
 package com.cicconi.events;
 
 import android.content.Intent;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.ShareCompat;
@@ -102,8 +105,12 @@ public class EventDetailsFragment extends Fragment {
 
         mBinding.eventDetailsLayout.setVisibility(View.VISIBLE);
         mBinding.errorMessage.setVisibility(View.GONE);
-        handleFavoriteIcon();
-        handleShareIcon();
+        handleFavoriteIconClick();
+        handleShareIconClick();
+        handleUrlClick();
+        handleFacebookUrlClick();
+        handlePhoneClick();
+        handleEmailClick();
 
         Picasso.with(requireActivity())
             .load(mEvent.getCoverUrl())
@@ -130,7 +137,8 @@ public class EventDetailsFragment extends Fragment {
         if(mEvent.getDescription()!= null && !mEvent.getDescription().isEmpty()) {
             mBinding.eventDescriptionLabel.setVisibility(View.VISIBLE);
             mBinding.eventDescription.setVisibility(View.VISIBLE);
-            mBinding.eventDescription.setText(mEvent.getDescription());
+            String description = Html.fromHtml(mEvent.getDescription()).toString();
+            mBinding.eventDescription.setText(description);
         }
 
         if(mEvent.getAddressStreet() != null && !mEvent.getAddressStreet().isEmpty()
@@ -158,16 +166,19 @@ public class EventDetailsFragment extends Fragment {
         if(mEvent.getContactUrl() != null && !mEvent.getContactUrl().isEmpty()) {
             mBinding.eventContactUrl.setVisibility(View.VISIBLE);
             mBinding.eventContactUrl.setText(mEvent.getContactUrl());
+            mBinding.eventContactUrl.setPaintFlags(mBinding.eventContactUrl.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         }
 
         if(mEvent.getContactMail() != null && !mEvent.getContactMail().isEmpty()) {
             mBinding.eventContactEmail.setVisibility(View.VISIBLE);
             mBinding.eventContactEmail.setText(mEvent.getContactMail());
+            mBinding.eventContactEmail.setPaintFlags(mBinding.eventContactEmail.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         }
 
         if(mEvent.getContactFacebook() != null && !mEvent.getContactFacebook().isEmpty()) {
             mBinding.eventContactFacebook.setVisibility(View.VISIBLE);
             mBinding.eventContactFacebook.setText(mEvent.getContactFacebook());
+            mBinding.eventContactFacebook.setPaintFlags(mBinding.eventContactFacebook.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         }
 
         if(mEvent.getContactPhone() != null && !mEvent.getContactPhone().isEmpty()) {
@@ -176,7 +187,15 @@ public class EventDetailsFragment extends Fragment {
         }
     }
 
-    private void handleShareIcon() {
+    private void handleFavoriteIconClick() {
+        mViewModel.getEventFavoriteStatus().observe(requireActivity(), isFavorite -> {
+            Timber.i("isFavorite live data changed: %s", isFavorite);
+            setFavoriteIconColor(isFavorite);
+            onFavoriteIconClick(isFavorite);
+        });
+    }
+
+    private void handleShareIconClick() {
         mBinding.eventShare.setOnClickListener(view -> {
             String mimeType = "text/plain";
             String textToShare =
@@ -191,11 +210,46 @@ public class EventDetailsFragment extends Fragment {
         });
     }
 
-    private void handleFavoriteIcon() {
-        mViewModel.getEventFavoriteStatus().observe(requireActivity(), isFavorite -> {
-            Timber.i("isFavorite live data changed: %s", isFavorite);
-            setFavoriteIconColor(isFavorite);
-            onFavoriteIconClick(isFavorite);
+    private void handleUrlClick() {
+        mBinding.eventContactUrl.setOnClickListener(view -> {
+            Uri webPage = Uri.parse(mBinding.eventContactUrl.getText().toString());
+            Intent intent = new Intent(Intent.ACTION_VIEW, webPage);
+
+            if(intent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void handleFacebookUrlClick() {
+        mBinding.eventContactFacebook.setOnClickListener(view -> {
+            Uri webPage = Uri.parse(mBinding.eventContactFacebook.getText().toString());
+            Intent intent = new Intent(Intent.ACTION_VIEW, webPage);
+
+            if(intent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void handlePhoneClick() {
+        mBinding.eventContactPhone.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + mBinding.eventContactPhone.getText()));
+            if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void handleEmailClick() {
+        mBinding.eventContactEmail.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL, mBinding.eventContactEmail.getText());
+            if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                startActivity(intent);
+            }
         });
     }
 

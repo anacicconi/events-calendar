@@ -13,4 +13,5 @@
     <color name="on_error">#FFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="event_info_background_color">#BF000000</color>
+    <color name="clickable_text">#538FD6</color>
 </resources>

@@ -6,26 +6,25 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import java.util.ArrayList;
 
-public class ZipCodeFragment extends DialogFragment {
+public class CategoryDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        ArrayList selectedItems = new ArrayList();
+        ArrayList<String> selectedItems = new ArrayList();
+
+        String[] stringArray = getResources().getStringArray(R.array.categories);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder
-            .setMessage(R.string.dialog_zip_code)
-            .setMultiChoiceItems(R.array.zip_codes, null, (dialog, which, isChecked) -> {
-                if (isChecked) {
-                    selectedItems.add(which);
-                } else if (selectedItems.contains(which)) {
-                    selectedItems.remove(Integer.valueOf(which));
-                }
+            .setTitle(R.string.dialog_category)
+            .setMultiChoiceItems(R.array.categories, null, (dialog, which, isChecked) -> {
+                if (isChecked) selectedItems.add(stringArray[which]);
+                else selectedItems.remove(stringArray[which]);
             })
             .setPositiveButton(R.string.ok, (dialog, id) -> {
                 MainActivity mainActivity = (MainActivity) getActivity();
                 if(mainActivity != null) {
-                    mainActivity.onZipCodeSet(selectedItems);
+                    mainActivity.onEventCategoriesSet(selectedItems);
                 }
             })
             .setNegativeButton(R.string.cancel, (dialog, id) -> dismiss());

@@ -1,6 +1,5 @@
 package com.cicconi.events;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.widget.DatePicker;
@@ -8,8 +7,8 @@ import androidx.fragment.app.DialogFragment;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class DatePickerFragment extends DialogFragment
-    implements DatePickerDialog.OnDateSetListener {
+public class DatePickerDialog extends DialogFragment
+    implements android.app.DatePickerDialog.OnDateSetListener {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -20,7 +19,7 @@ public class DatePickerFragment extends DialogFragment
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        return new android.app.DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {

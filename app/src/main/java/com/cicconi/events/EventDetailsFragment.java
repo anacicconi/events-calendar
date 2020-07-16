@@ -19,6 +19,7 @@ import com.cicconi.events.database.EventPriceType;
 import com.cicconi.events.databinding.FragmentEventDetailsBinding;
 import com.cicconi.events.utils.ColorHandler;
 import com.cicconi.events.utils.DateFormatter;
+import com.cicconi.events.utils.PhoneFomatter;
 import com.cicconi.events.viewmodel.EventDetailsViewModel;
 import com.cicconi.events.viewmodel.EventDetailsViewModelFactory;
 import com.squareup.picasso.Picasso;
@@ -189,7 +190,7 @@ public class EventDetailsFragment extends Fragment {
 
         if(mEvent.getContactPhone() != null && !mEvent.getContactPhone().isEmpty()) {
             mBinding.eventContactPhone.setVisibility(View.VISIBLE);
-            mBinding.eventContactPhone.setText(mEvent.getContactPhone());
+            mBinding.eventContactPhone.setText(PhoneFomatter.format(mEvent.getContactPhone()));
         }
     }
 

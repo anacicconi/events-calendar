@@ -58,6 +58,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         Long dateStart = mEventData.get(position).getDateStart();
         Long dateEnd = mEventData.get(position).getDateEnd();
         String priceType = mEventData.get(position).getPriceType();
+        String zipCode = mEventData.get(position).getAddressZipcode();
         String imageUrl = mEventData.get(position).getCoverUrl();
 
         if(!title.isEmpty()) {
@@ -73,7 +74,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         if(priceType != null && !priceType.isEmpty()) {
             holder.mType.setText(priceType);
         } else {
-            holder.mType.setText(R.string.unknown);
+            holder.mType.setVisibility(View.GONE);
+        }
+
+        if(zipCode != null && !zipCode.isEmpty()) {
+            holder.mZipCode.setText(zipCode);
+        } else {
+            holder.mZipCode.setVisibility(View.GONE);
         }
 
         Picasso.with(mContext)
@@ -93,6 +100,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
         final TextView mTitle;
         final TextView mDate;
         final TextView mType;
+        final TextView mZipCode;
         final ImageView mFavorite;
 
         EventAdapterViewHolder(@NonNull View itemView) {
@@ -101,6 +109,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
             this.mTitle = itemView.findViewById(R.id.event_title);
             this.mDate = itemView.findViewById(R.id.event_date);
             this.mType = itemView.findViewById(R.id.event_type);
+            this.mZipCode = itemView.findViewById(R.id.event_zip_code);
             this.mFavorite = itemView.findViewById(R.id.event_favorite);
             itemView.setOnClickListener(this);
         }

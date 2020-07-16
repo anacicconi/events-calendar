@@ -1,6 +1,6 @@
 package com.cicconi.events;
 
-public enum CategoryType {
+public enum Type {
     ALL,
     FAVORITE,
     DATE,

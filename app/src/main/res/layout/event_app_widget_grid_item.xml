@@ -43,5 +43,13 @@
             tools:text="gratuit"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             />
+        <TextView
+            android:id="@+id/event_zip_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            tools:text="75001"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            />
     </LinearLayout>
 </LinearLayout>

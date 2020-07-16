@@ -2,13 +2,14 @@ package com.cicconi.events.repository;
 
 import android.content.Context;
 import androidx.lifecycle.LiveData;
-import com.cicconi.events.CategoryType;
+import com.cicconi.events.Type;
 import com.cicconi.events.database.AppDatabase;
 import com.cicconi.events.database.Event;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventRepository {
@@ -19,12 +20,16 @@ public class EventRepository {
         mDb = AppDatabase.getInstance(context);
     }
 
-    public LiveData<List<Event>> getLocalEvents(CategoryType categoryType, Long date) {
-        switch (categoryType) {
+    public LiveData<List<Event>> getLocalEvents(Type type, Long date, ArrayList<String> zipCodes, String category) {
+        switch (type) {
             case FAVORITE:
                 return mDb.eventDAO().loadFavoriteEvents();
             case DATE:
                 return mDb.eventDAO().loadEventsOnDate(date);
+            case ZIP_CODE:
+                return mDb.eventDAO().loadEventsOnZipCodes(zipCodes);
+            case CATEGORY:
+                return mDb.eventDAO().loadEventsOnCategory(category);
             default:
                 return mDb.eventDAO().loadAllEvents();
         }

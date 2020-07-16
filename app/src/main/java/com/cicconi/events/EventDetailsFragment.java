@@ -288,9 +288,9 @@ public class EventDetailsFragment extends Fragment {
 
     private void displayFavoriteUpdateStatusMessage(Boolean isFavorite) {
         if(isFavorite) {
-            Toast.makeText(requireActivity(), "The event was added to favorites", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), "L'événement a été rajouté aux favoris", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(requireActivity(), "The event was removed from favorites", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), "L'événement a été supprimé des favoris", Toast.LENGTH_SHORT).show();
         }
     }
 

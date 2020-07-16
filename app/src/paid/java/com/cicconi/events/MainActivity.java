@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,14 +16,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.work.Constraints;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
-import com.cicconi.events.CategoryType;
-import com.cicconi.events.R;
 import com.cicconi.events.adapter.EventAdapter;
 import com.cicconi.events.database.Event;
 import com.cicconi.events.databinding.ActivityMainBinding;
 import com.cicconi.events.viewmodel.MainViewModel;
 import com.cicconi.events.worker.SyncEventsWorker;
 import com.facebook.stetho.Stetho;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import timber.log.Timber;
@@ -77,15 +77,15 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
 
     private void loadEvents() {
         showLoading();
-        setCategory();
+        setType();
         observeEventsData();
     }
 
-    private void setCategory() {
+    private void setType() {
         Intent intent = getIntent();
-        if (intent.hasExtra(Constants.EXTRA_CATEGORY_TYPE)) {
-            CategoryType categoryType = (CategoryType) intent.getSerializableExtra(Constants.EXTRA_CATEGORY_TYPE);
-            mViewModel.setCategory(categoryType);
+        if (intent.hasExtra(Constants.EXTRA_TYPE)) {
+            Type type = (Type) intent.getSerializableExtra(Constants.EXTRA_TYPE);
+            mViewModel.setType(type, null, null, null);
         }
     }
 
@@ -165,20 +165,34 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         int id = item.getItemId();
 
         if (id == R.id.action_events_all) {
-            mViewModel.setCategory(CategoryType.ALL, null);
+            mViewModel.setType(Type.ALL, null, null, null);
 
             return true;
         }
 
         if (id == R.id.action_events_favorite) {
-            mViewModel.setCategory(CategoryType.FAVORITE, null);
+            mViewModel.setType(Type.FAVORITE, null, null, null);
 
             return true;
         }
 
         if (id == R.id.action_events_date) {
-            DialogFragment newFragment = new DatePickerFragment();
+            DatePickerDialogFragment newFragment = new DatePickerDialogFragment();
             newFragment.show(getSupportFragmentManager(), "datePicker");
+
+            return true;
+        }
+
+        if (id == R.id.action_events_zip_code) {
+            ZipCodeDialogFragment newFragment = new ZipCodeDialogFragment();
+            newFragment.show(getSupportFragmentManager(), "zipCode");
+
+            return true;
+        }
+
+        if (id == R.id.action_events_category) {
+            CategoryDialogFragment newFragment = new CategoryDialogFragment();
+            newFragment.show(getSupportFragmentManager(), "category");
 
             return true;
         }
@@ -187,6 +201,14 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
     }
 
     public void onDateSet(Long timestamp) {
-        mViewModel.setCategory(CategoryType.DATE, timestamp);
+        mViewModel.setType(Type.DATE, timestamp, null, null);
+    }
+
+    public void onZipCodesSet(ArrayList<String> selectedItems) {
+        mViewModel.setType(Type.ZIP_CODE, null, selectedItems, null);
+    }
+
+    public void onCategorySet(String category) {
+        mViewModel.setType(Type.CATEGORY, null, null, category);
     }
 }

@@ -14,6 +14,25 @@
         <item name="colorOnSurface">@color/on_surface</item>
         <item name="colorError">@color/error</item>
         <item name="colorOnError">@color/on_error</item>
+
+        <!-- Default buttons style -->
+        <item name="materialButtonStyle">@style/Widget.App.Button.Main</item>
+
+        <!-- Default dialog style -->
+        <item name="android:alertDialogTheme">@style/ThemeOverlay.App.Dialog</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowTitleStyle">@style/Dialog.App.Title</item>
+    </style>
+    <style name="Dialog.App.Title" parent="">
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
+    </style>
+
+    <style name="Widget.App.Button.Main" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="backgroundTint">?colorSurface</item>
+        <item name="android:textColor">?colorPrimary</item>
     </style>
 
     <style name="detail_label">

@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -20,6 +21,12 @@ public interface EventDAO {
 
     @Query("SELECT * FROM event WHERE date_start < :date and date_end > :date ORDER BY date_start ASC")
     LiveData<List<Event>> loadEventsOnDate(Long date);
+
+    @Query("SELECT * FROM event WHERE address_zipcode IN (:zipCodes) ORDER BY date_start ASC")
+    LiveData<List<Event>> loadEventsOnZipCodes(ArrayList<String> zipCodes);
+
+    @Query("SELECT * FROM event WHERE category LIKE '%' || :category || '%' ORDER BY date_start ASC")
+    LiveData<List<Event>> loadEventsOnCategory(String category);
 
     @Query("SELECT * FROM event WHERE date_start < :date and date_end > :date ORDER BY date_start ASC")
     List<Event> loadTodayEventsForWidget(long date);

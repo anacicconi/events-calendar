@@ -59,6 +59,7 @@ public class GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
             DateFormatter.format(mContext, todayEvent.getDateEnd()));
         views.setTextViewText(R.id.event_date, finalDate);
         views.setTextViewText(R.id.event_type, todayEvent.getPriceType());
+        views.setTextViewText(R.id.event_zip_code, todayEvent.getAddressZipcode());
 
         try {
             Bitmap bitmap = Picasso.with(mContext)

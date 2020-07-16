@@ -7,7 +7,7 @@ import androidx.fragment.app.DialogFragment;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ZipCodeDialog extends DialogFragment {
+public class ZipCodeDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

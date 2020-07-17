@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.firebase.appdistribution'
 
 android {
     compileSdkVersion 29
@@ -15,9 +14,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
-
-        // Too many dependencies so need multidex
-        multiDexEnabled true
     }
 
     buildTypes {
@@ -113,13 +109,6 @@ dependencies {
 
     // Work Managers
     implementation "androidx.work:work-runtime:2.3.4"
-
-    // Exo Player
-    //implementation 'com.google.android.exoplayer:exoplayer:2.11.4'
-    // Adding only the libraries used for the project
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.11.4'
-    implementation 'com.google.android.exoplayer:exoplayer-dash:2.11.4'
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.11.4'
 
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'

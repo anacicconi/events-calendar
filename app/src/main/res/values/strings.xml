@@ -28,4 +28,6 @@
     <string name="event_information_background">Event Information Background</string>
     <string name="event_added_favorite">L\'événement a été rajouté aux favoris</string>
     <string name="event_removed_favorite">L\'événement a été supprimé des favoris</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="map">Voir sur la carte</string>
 </resources>

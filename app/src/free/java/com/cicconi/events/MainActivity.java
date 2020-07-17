@@ -8,7 +8,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,7 +24,6 @@ import com.facebook.stetho.Stetho;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
 
         loadEvents();
 
-        MobileAds.initialize(this, (OnInitializationCompleteListener) initializationStatus -> {});
+        MobileAds.initialize(this, initializationStatus -> {});
 
         AdView mAdView = mBinding.adView;
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -204,6 +202,13 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         if (id == R.id.action_events_category) {
             CategoryDialogFragment newFragment = new CategoryDialogFragment();
             newFragment.show(getSupportFragmentManager(), "category");
+
+            return true;
+        }
+
+        if (id == R.id.action_events_map) {
+            Intent mapsActivityIntent = new Intent(this, MapsActivity.class);
+            startActivity(mapsActivityIntent);
 
             return true;
         }

@@ -127,6 +127,9 @@ dependencies {
     // Images
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
-    // Add ads only for free version
+    // Add Google Ads only for free version
     freeImplementation 'com.google.android.gms:play-services-ads:19.2.0'
+
+    // Google Maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }

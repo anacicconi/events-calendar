@@ -170,6 +170,12 @@ public class EventDetailsFragment extends Fragment {
             mBinding.eventContactLabel.setVisibility(View.VISIBLE);
         }
 
+        if(mEvent.getContactName() != null && !mEvent.getContactName().isEmpty()) {
+            mBinding.eventContactName.setVisibility(View.VISIBLE);
+            mBinding.eventContactName.setText(mEvent.getContactName());
+            mBinding.eventContactName.setPaintFlags(mBinding.eventContactName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        }
+
         if(mEvent.getContactUrl() != null && !mEvent.getContactUrl().isEmpty()) {
             mBinding.eventContactUrl.setVisibility(View.VISIBLE);
             mBinding.eventContactUrl.setText(mEvent.getContactUrl());

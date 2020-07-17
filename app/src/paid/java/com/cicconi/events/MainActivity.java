@@ -1,6 +1,7 @@
 package com.cicconi.events;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import androidx.work.Constraints;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import com.cicconi.events.adapter.EventAdapter;
+import com.cicconi.events.async.SyncEventsService;
 import com.cicconi.events.database.Event;
 import com.cicconi.events.databinding.ActivityMainBinding;
 import com.cicconi.events.viewmodel.MainViewModel;
@@ -31,12 +33,15 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
     private EventAdapter mEventAdapter;
     private MainViewModel mViewModel;
     private ActivityMainBinding mBinding;
+    private Intent mSyncEventsServiceIntent;
     private boolean isTablet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Used to debug database content
         Stetho.initializeWithDefaults(this);
+
+        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         synchronizeEvents();
 
@@ -54,24 +59,44 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         mEventAdapter = new EventAdapter(this);
         mBinding.recyclerviewEvents.setAdapter(mEventAdapter);
 
-        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
         loadEvents();
     }
 
     private void synchronizeEvents() {
-        Constraints constraints = new Constraints.Builder()
-            .setRequiresCharging(true)
-            .build();
+        SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+        boolean defaultValue = getResources().getBoolean(R.bool.has_sync_events_default_value);
+        boolean hasSynchronizedEvents = sharedPref.getBoolean(getString(R.string.has_sync_events), defaultValue);
+        mSyncEventsServiceIntent = new Intent(this, SyncEventsService.class);
 
+        // If the user has never sync the events, sync once
+        if(!hasSynchronizedEvents) {
+            startSyncService(sharedPref);
+        } else {
+            // Sync again once a day if there was a first sync and the phone is charging
+            startSyncWorker();
+        }
+    }
+
+    private void startSyncService(SharedPreferences sharedPref) {
+        mViewModel.isSyncServiceRunning = true;
+        mSyncEventsServiceIntent.setAction(Constants.SYNCHRONIZE_EVENTS);
+        startService(mSyncEventsServiceIntent);
+        sharedPref.edit().putBoolean(getString(R.string.has_sync_events), true).apply();
+    }
+
+    private void stopSyncService() {
+        if(mViewModel.isSyncServiceRunning) {
+            stopService(mSyncEventsServiceIntent);
+            mViewModel.isSyncServiceRunning = false;
+        }
+    }
+
+    private void startSyncWorker() {
+        Constraints constraints = new Constraints.Builder().setRequiresCharging(true).build();
         PeriodicWorkRequest syncEventsWorkRequest =
             new PeriodicWorkRequest.Builder(SyncEventsWorker.class, 1, TimeUnit.DAYS)
-                //.setConstraints(constraints)
-                .build();
-
-        WorkManager
-            .getInstance(this)
-            .enqueue(syncEventsWorkRequest);
+                .setConstraints(constraints).build();
+        WorkManager.getInstance(this).enqueue(syncEventsWorkRequest);
     }
 
     private void loadEvents() {
@@ -97,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
 
     private void onEventsReceived(List<Event> events) {
         if (!events.isEmpty()) {
+            stopSyncService();
             showEventView();
             mEventAdapter.setEventData(events);
 

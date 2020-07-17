@@ -20,6 +20,7 @@ public class MainViewModel extends AndroidViewModel {
     private Long date;
     private ArrayList<String> zipCodes;
     private String category;
+    public boolean isSyncServiceRunning;
 
     public MainViewModel(@NonNull Application application) {
         super(application);

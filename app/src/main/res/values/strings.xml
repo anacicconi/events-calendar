@@ -28,7 +28,7 @@
     <string name="event_information_background">Event Information Background</string>
     <string name="event_added_favorite">L\'événement a été rajouté aux favoris</string>
     <string name="event_removed_favorite">L\'événement a été supprimé des favoris</string>
-    <string name="title_activity_maps">Map</string>
     <string name="map">Voir dans la carte</string>
     <string name="more_info">Voir plus</string>
+    <string name="has_sync_events">has_sync_events</string>
 </resources>

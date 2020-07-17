@@ -1,10 +1,7 @@
-package com.cicconi.events.worker;
+package com.cicconi.events.async;
 
 import android.content.Context;
-import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
+import com.cicconi.events.Constants;
 import com.cicconi.events.model.EventResponse;
 import com.cicconi.events.model.RecordResponse;
 import com.cicconi.events.network.RetrofitBuilder;
@@ -15,42 +12,46 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class SyncEventsWorker extends Worker {
-    
-    private EventRepository mEventRepository;
-    private CompositeDisposable mCompositeDisposable;
+class SyncEventsTask {
 
-    public SyncEventsWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
-        super(context, workerParams);
+    private static CompositeDisposable mCompositeDisposable;
+    private static EventRepository mEventRepository;
+
+    static void executeTask(Context context, CompositeDisposable compositeDisposable, String action) {
+        if(action == null || action.isEmpty()) {
+            Timber.w("Calling the task without an action");
+            return;
+        }
+
+        mCompositeDisposable = compositeDisposable;
         mEventRepository = new EventRepository(context);
-        mCompositeDisposable = new CompositeDisposable();
+
+        if(action.equals(Constants.SYNCHRONIZE_EVENTS)) {
+            synchronizeEvents();
+        }
     }
 
-    @NonNull
-    @Override
-    public Result doWork() {
+    private static void synchronizeEvents() {
+        Timber.i("Thread: %s", Thread.currentThread().getName());
+
         Disposable disposable = getRemoteEvents()
             .doOnNext(i -> Timber.d("Thread doWork: %s", Thread.currentThread().getName()))
             .subscribe(eventResponse -> {
                 for (RecordResponse recordResponse : eventResponse.getRecords()) {
                     getLocalEvent(recordResponse);
                 }
-            }, Throwable::printStackTrace, () -> Timber.d("Synch completed"));
+            }, Throwable::printStackTrace, () -> Timber.d("Sync completed"));
 
         mCompositeDisposable.add(disposable);
-
-        // TODO: succes here or on rx?
-        return Result.success();
-
     }
 
-    private Observable<EventResponse> getRemoteEvents() {
+    private static Observable<EventResponse> getRemoteEvents() {
         return RetrofitBuilder.getClient().getEvents()
             .subscribeOn(Schedulers.io())
             .onErrorReturn(e -> getEmptyApiResponse());
     }
 
-    private void getLocalEvent(RecordResponse recordResponse) {
+    private static void getLocalEvent(RecordResponse recordResponse) {
         Disposable disposable = mEventRepository.getEventByApiId(recordResponse.getRecordid())
             .doOnError(error -> addEvent(recordResponse))
             .subscribe(localEvent -> {
@@ -62,19 +63,14 @@ public class SyncEventsWorker extends Worker {
         mCompositeDisposable.add(disposable);
     }
 
-    private EventResponse getEmptyApiResponse() {
+    private static EventResponse getEmptyApiResponse() {
         return new EventResponse();
     }
 
-    private void addEvent(RecordResponse recordResponse) {
+    private static void addEvent(RecordResponse recordResponse) {
         Disposable disposable = mEventRepository.addEvent(recordResponse.toEvent())
             .subscribe(eventId -> Timber.d("New event added"), Throwable::printStackTrace);
 
         mCompositeDisposable.add(disposable);
-    }
-
-    @Override
-    public void onStopped() {
-        mCompositeDisposable.dispose();
     }
 }

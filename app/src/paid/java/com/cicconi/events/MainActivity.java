@@ -19,7 +19,7 @@ import com.cicconi.events.adapter.EventAdapter;
 import com.cicconi.events.database.Event;
 import com.cicconi.events.databinding.ActivityMainBinding;
 import com.cicconi.events.viewmodel.MainViewModel;
-import com.cicconi.events.worker.SyncEventsWorker;
+import com.cicconi.events.async.SyncEventsWorker;
 import com.facebook.stetho.Stetho;
 import java.util.ArrayList;
 import java.util.List;

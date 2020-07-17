@@ -1,12 +1,12 @@
 package com.cicconi.events;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -192,6 +192,13 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.Even
         if (id == R.id.action_events_category) {
             CategoryDialogFragment newFragment = new CategoryDialogFragment();
             newFragment.show(getSupportFragmentManager(), "category");
+
+            return true;
+        }
+
+        if (id == R.id.action_events_map) {
+            Intent mapsActivityIntent = new Intent(this, MapsActivity.class);
+            startActivity(mapsActivityIntent);
 
             return true;
         }

@@ -272,7 +272,7 @@ public class EventDetailsFragment extends Fragment {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError(e -> {
                 e.printStackTrace();
-                Toast.makeText(requireActivity(), "An error occurred", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(),  R.string.error_message, Toast.LENGTH_SHORT).show();
             })
             .subscribe(
                 () -> {
@@ -295,9 +295,9 @@ public class EventDetailsFragment extends Fragment {
 
     private void displayFavoriteUpdateStatusMessage(Boolean isFavorite) {
         if(isFavorite) {
-            Toast.makeText(requireActivity(), "L'événement a été rajouté aux favoris", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), R.string.event_added_favorite, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(requireActivity(), "L'événement a été supprimé des favoris", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), R.string.event_removed_favorite, Toast.LENGTH_SHORT).show();
         }
     }
 

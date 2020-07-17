@@ -33,6 +33,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/placeholder"
+                    android:contentDescription="@string/event_cover"
                     android:scaleType="centerCrop"
                     />
                 <TextView
@@ -55,6 +56,7 @@
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_marginEnd="@dimen/margin_medium"
                     app:srcCompat="@drawable/ic_favorite"
+                    android:contentDescription="@string/favorite_icon"
                     app:layout_constraintTop_toTopOf="@id/event_title"
                     app:layout_constraintBottom_toTopOf="@+id/event_share"
                     app:layout_constraintStart_toEndOf="@id/event_title"
@@ -66,6 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_large"
                     app:srcCompat="@drawable/ic_share"
+                    android:contentDescription="@string/share_icon"
                     app:layout_constraintTop_toBottomOf="@id/event_favorite"
                     app:layout_constraintStart_toStartOf="@id/event_favorite"
                     app:layout_constraintEnd_toEndOf="@id/event_favorite"

@@ -4,7 +4,6 @@
     <string name="unknown">Inconnu</string>
     <string name="no_results_message">Zéro résultats</string>
     <string name="appwidget_text">Events</string>
-    <string name="add_widget">Add widget</string>
     <string name="action_events_all">Tous</string>
     <string name="action_events_favorite">Favoris</string>
     <string name="action_events_date">Date</string>
@@ -23,4 +22,10 @@
     <string name="cancel">Annuler</string>
     <string name="action_events_category">Catégorie</string>
     <string name="dialog_category">Catégories</string>
+    <string name="event_cover">Event Cover</string>
+    <string name="favorite_icon">Favorite Icon</string>
+    <string name="share_icon">Share Icon</string>
+    <string name="event_information_background">Event Information Background</string>
+    <string name="event_added_favorite">L\'événement a été rajouté aux favoris</string>
+    <string name="event_removed_favorite">L\'événement a été supprimé des favoris</string>
 </resources>

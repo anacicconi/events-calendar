@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         tools:src="@drawable/placeholder"
+        android:contentDescription="@string/event_cover"
         android:scaleType="centerCrop"
         />
     <TextView

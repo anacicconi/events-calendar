@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".EventDetailsActivity"
     >
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/event_details_fragment"
         android:name="com.cicconi.events.EventDetailsFragment"
         android:layout_width="match_parent"

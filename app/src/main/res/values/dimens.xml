@@ -5,9 +5,7 @@
     <dimen name="padding_xlarge">64dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
-    <dimen name="rating_text">22sp</dimen>
     <dimen name="subtitle_text">20sp</dimen>
-    <dimen name="body_text">18sp</dimen>
     <dimen name="loader_size">42dp</dimen>
     <dimen name="margin_large">32dp</dimen>
 
@@ -15,8 +13,6 @@
 Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
-    <dimen name="widget_margin">8dp</dimen>
-    <dimen name="favorite_icon_size">36dp</dimen>
     <dimen name="event_cover_height">150dp</dimen>
     <integer name="main_events_list_columns">1</integer>
 </resources>

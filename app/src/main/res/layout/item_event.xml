@@ -14,6 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/placeholder"
+        android:contentDescription="@string/event_cover"
         android:scaleType="centerCrop"
         />
     <ImageView
@@ -21,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@color/event_info_background_color"
+        android:contentDescription="@string/event_information_background"
         app:layout_constraintBottom_toBottomOf="@+id/event_cover"
         />
     <TextView

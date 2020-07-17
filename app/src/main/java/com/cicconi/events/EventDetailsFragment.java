@@ -267,9 +267,7 @@ public class EventDetailsFragment extends Fragment {
     }
 
     private void onFavoriteIconClick(boolean isFavorite) {
-        mBinding.eventFavorite.setOnClickListener(view -> {
-            updateEventFavoriteStatus(isFavorite);
-        });
+        mBinding.eventFavorite.setOnClickListener(view -> updateEventFavoriteStatus(isFavorite));
     }
 
     private void updateEventFavoriteStatus(boolean isFavorite) {

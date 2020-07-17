@@ -19,9 +19,9 @@ android {
     signingConfigs {
         release {
             storeFile file('/Users/a.cicconi/android-sigin-keys')
-            storePassword 'XXX'
+            storePassword 'xxx'
             keyAlias = 'events-calendar'
-            keyPassword 'XXX'
+            keyPassword 'xxx'
         }
     }
 

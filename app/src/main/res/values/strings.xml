@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Paris Culture</string>
+    <string name="app_name">ParisCulture</string>
     <string name="error_message">Désolé, il y a eu une erreur</string>
     <string name="unknown">Inconnu</string>
     <string name="no_results_message">Zéro résultats</string>

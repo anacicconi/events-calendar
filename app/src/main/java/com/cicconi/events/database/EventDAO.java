@@ -32,18 +32,21 @@ public interface EventDAO {
     List<Event> loadTodayEventsForWidget(long date);
 
     // Not used on a view so no need for a live data
-    @Query("SELECT * FROM event WHERE api_id = :apiId")
+    @Query("SELECT * FROM event WHERE apiId = :apiId")
     Single<Event> loadEventByApiId(String apiId);
 
-    @Query("SELECT favorite FROM event WHERE id = :id")
-    LiveData<Boolean> loadEventFavoriteStatus(int id);
+    @Query("SELECT favorite FROM event WHERE apiId = :apiId")
+    LiveData<Boolean> loadEventFavoriteStatus(String apiId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Single<Long> insertEvent(Event event);
 
-    @Query("DELETE FROM event WHERE id = :id")
-    Completable deleteEvent(int id);
+    @Query("DELETE FROM event WHERE date_end < strftime('%s','now')")
+    Single<Integer> deletePastEvents();
 
-    @Query("UPDATE event SET favorite = :isFavorite WHERE id = :id")
-    Completable updateFavoriteEventStatus(int id, boolean isFavorite);
+    @Query("DELETE FROM event WHERE apiId = :apiId")
+    Completable deleteEvent(String apiId);
+
+    @Query("UPDATE event SET favorite = :isFavorite WHERE apiId = :apiId")
+    Completable updateFavoriteEventStatus(String apiId, boolean isFavorite);
 }

@@ -19,7 +19,7 @@ public class EventDetailsViewModel extends ViewModel {
         eventRepository = new EventRepository(context);
 
         this.mEvent = event;
-        isFavoriteEvent = eventRepository.getEventFavoriteStatus(mEvent.id);
+        isFavoriteEvent = eventRepository.getEventFavoriteStatus(mEvent.getApiId());
     }
 
     public LiveData<Boolean> getEventFavoriteStatus() {
@@ -27,6 +27,6 @@ public class EventDetailsViewModel extends ViewModel {
     }
 
     public Completable onFavoriteStatusUpdated(Boolean newFavoriteStatus) {
-        return eventRepository.updateFavoriteEventStatus(mEvent.id, newFavoriteStatus);
+        return eventRepository.updateFavoriteEventStatus(mEvent.getApiId(), newFavoriteStatus);
     }
 }

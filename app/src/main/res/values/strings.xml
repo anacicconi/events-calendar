@@ -31,4 +31,5 @@
     <string name="map">Voir dans la carte</string>
     <string name="more_info">Voir plus</string>
     <string name="has_sync_events">has_sync_events</string>
+    <string name="share_message">Je pense que cet événement va vous intérésser: %1$s. Pour en savoir plus: %2$s</string>
 </resources>

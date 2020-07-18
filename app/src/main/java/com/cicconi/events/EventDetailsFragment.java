@@ -211,9 +211,8 @@ public class EventDetailsFragment extends Fragment {
     private void handleShareIconClick() {
         mBinding.eventShare.setOnClickListener(view -> {
             String mimeType = "text/plain";
-            String textToShare =
-                String.format("Je pense que cet événement va vous intérésser: %s. Pour en savoir plus: %s",
-                    mEvent.getTitle(), mEvent.getContactUrl());
+            String textToShare = String.format(getString(R.string.share_message),
+                mEvent.getTitle(), mEvent.getContactUrl());
 
             ShareCompat.IntentBuilder shareCompat = ShareCompat.IntentBuilder.from(requireActivity());
             shareCompat

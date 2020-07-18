@@ -1,28 +1,19 @@
 package com.cicconi.events.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.text.format.DateFormat;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cicconi.events.R;
 import com.cicconi.events.database.Event;
-import com.cicconi.events.utils.ColorHandler;
 import com.cicconi.events.utils.DateFormatter;
 import com.squareup.picasso.Picasso;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import timber.log.Timber;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapterViewHolder> {

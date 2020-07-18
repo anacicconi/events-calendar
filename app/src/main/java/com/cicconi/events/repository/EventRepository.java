@@ -40,8 +40,8 @@ public class EventRepository {
             .subscribeOn(Schedulers.io());
     }
 
-    public LiveData<Boolean> getEventFavoriteStatus(int id) {
-        return mDb.eventDAO().loadEventFavoriteStatus(id);
+    public LiveData<Boolean> getEventFavoriteStatus(String apiId) {
+        return mDb.eventDAO().loadEventFavoriteStatus(apiId);
     }
 
     public Single<Long> addEvent(Event event) {
@@ -49,10 +49,15 @@ public class EventRepository {
             .subscribeOn(Schedulers.io());
     }
 
-    public Completable updateFavoriteEventStatus(int id, boolean isFavorite) {
-        return mDb.eventDAO().updateFavoriteEventStatus(id, isFavorite)
+    public Completable updateFavoriteEventStatus(String apiId, boolean isFavorite) {
+        return mDb.eventDAO().updateFavoriteEventStatus(apiId, isFavorite)
             .subscribeOn(Schedulers.io())
             .onErrorComplete();
+    }
+
+    public Single<Integer> deletePastEvents() {
+        return mDb.eventDAO().deletePastEvents()
+            .subscribeOn(Schedulers.io());
     }
 
     public List<Event> getTodayEventsForWidget() {

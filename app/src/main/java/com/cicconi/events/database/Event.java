@@ -1,18 +1,18 @@
 package com.cicconi.events.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import java.io.Serializable;
+import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "event")
 public class Event implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
-    public Integer id;
-    @ColumnInfo(name = "api_id")
-    public String apiId;
+    @NonNull
+    @PrimaryKey()
+    private String apiId;
     @ColumnInfo(name = "access_type")
     private String accessType;
     @ColumnInfo(name ="address_street")
@@ -62,8 +62,7 @@ public class Event implements Serializable {
     private String transport;
     public Boolean favorite;
 
-    @Ignore
-    public Event(String apiId, String accessType, String addressStreet, Double latitude, Double longitude,
+    public Event(@NotNull String apiId, String accessType, String addressStreet, Double latitude, Double longitude,
         String category, String title, String coverAlt, Long dateStart, Long dateEnd, String addressName, String description,
         String contactMail, String leadText, String coverUrl, String addressCity, String priceType, String url,
         String dateDescription, String addressZipcode, String priceDetail, String contactPhone, String contactUrl,
@@ -97,91 +96,26 @@ public class Event implements Serializable {
         this.accessPhone = accessPhone;
         this.transport = transport;
         this.favorite = favorite;
-    }
-
-    public Event(int id, String apiId, String accessType, String addressStreet, Double latitude, Double longitude,
-        String category, String title, String coverAlt, Long dateStart, Long dateEnd, String addressName, String description,
-        String contactMail, String leadText, String coverUrl, String addressCity, String priceType, String url,
-        String dateDescription, String addressZipcode, String priceDetail, String contactPhone, String contactUrl,
-        String accessMail, String contactFacebook, String contactName, String accessPhone, String transport, Boolean favorite) {
-        this.id = id;
-        this.apiId = apiId;
-        this.accessType = accessType;
-        this.addressStreet = addressStreet;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.category = category;
-        this.title = title;
-        this.coverAlt = coverAlt;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.addressName = addressName;
-        this.description = description;
-        this.contactMail = contactMail;
-        this.leadText = leadText;
-        this.coverUrl = coverUrl;
-        this.addressCity = addressCity;
-        this.priceType = priceType;
-        this.url = url;
-        this.dateDescription = dateDescription;
-        this.addressZipcode = addressZipcode;
-        this.priceDetail = priceDetail;
-        this.contactPhone = contactPhone;
-        this.contactUrl = contactUrl;
-        this.accessMail = accessMail;
-        this.contactFacebook = contactFacebook;
-        this.contactName = contactName;
-        this.accessPhone = accessPhone;
-        this.transport = transport;
-        this.favorite = favorite;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getApiId() {
         return apiId;
     }
 
-    public void setApiId(String apiId) {
-        this.apiId = apiId;
-    }
-
     public String getAccessType() {
         return accessType;
-    }
-
-    public void setAccessType(String accessType) {
-        this.accessType = accessType;
     }
 
     public String getAddressStreet() {
         return addressStreet;
     }
 
-    public void setAddressStreet(String addressStreet) {
-        this.addressStreet = addressStreet;
-    }
-
     public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
     public Double getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
     }
 
     public String getCategory() {
@@ -196,80 +130,40 @@ public class Event implements Serializable {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getCoverAlt() {
         return coverAlt;
-    }
-
-    public void setCoverAlt(String coverAlt) {
-        this.coverAlt = coverAlt;
     }
 
     public Long getDateStart() {
         return dateStart;
     }
 
-    public void setDateStart(Long dateStart) {
-        this.dateStart = dateStart;
-    }
-
     public Long getDateEnd() {
         return dateEnd;
-    }
-
-    public void setDateEnd(Long dateEnd) {
-        this.dateEnd = dateEnd;
     }
 
     public String getAddressName() {
         return addressName;
     }
 
-    public void setAddressName(String addressName) {
-        this.addressName = addressName;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getContactMail() {
         return contactMail;
     }
 
-    public void setContactMail(String contactMail) {
-        this.contactMail = contactMail;
-    }
-
     public String getLeadText() {
         return leadText;
-    }
-
-    public void setLeadText(String leadText) {
-        this.leadText = leadText;
     }
 
     public String getCoverUrl() {
         return coverUrl;
     }
 
-    public void setCoverUrl(String coverUrl) {
-        this.coverUrl = coverUrl;
-    }
-
     public String getAddressCity() {
         return addressCity;
-    }
-
-    public void setAddressCity(String addressCity) {
-        this.addressCity = addressCity;
     }
 
     public String getPriceType() {
@@ -292,103 +186,47 @@ public class Event implements Serializable {
         return EventPriceType.ENTRANCE;
     }
 
-    public void setPriceType(String priceType) {
-        this.priceType = priceType;
-    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getDateDescription() {
         return dateDescription;
     }
 
-    public void setDateDescription(String dateDescription) {
-        this.dateDescription = dateDescription;
-    }
-
     public String getAddressZipcode() {
         return addressZipcode;
-    }
-
-    public void setAddressZipcode(String addressZipcode) {
-        this.addressZipcode = addressZipcode;
     }
 
     public String getPriceDetail() {
         return priceDetail;
     }
 
-    public void setPriceDetail(String priceDetail) {
-        this.priceDetail = priceDetail;
-    }
-
     public String getContactPhone() {
         return contactPhone;
-    }
-
-    public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
     }
 
     public String getContactUrl() {
         return contactUrl;
     }
 
-    public void setContactUrl(String contactUrl) {
-        this.contactUrl = contactUrl;
-    }
-
     public String getAccessMail() {
         return accessMail;
-    }
-
-    public void setAccessMail(String accessMail) {
-        this.accessMail = accessMail;
     }
 
     public String getContactFacebook() {
         return contactFacebook;
     }
 
-    public void setContactFacebook(String contactFacebook) {
-        this.contactFacebook = contactFacebook;
-    }
-
     public String getContactName() {
         return contactName;
-    }
-
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
     }
 
     public String getAccessPhone() {
         return accessPhone;
     }
 
-    public void setAccessPhone(String accessPhone) {
-        this.accessPhone = accessPhone;
-    }
-
     public String getTransport() {
         return transport;
-    }
-
-    public void setTransport(String transport) {
-        this.transport = transport;
-    }
-
-    public Boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(Boolean favorite) {
-        this.favorite = favorite;
     }
 }

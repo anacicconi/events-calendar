@@ -10,6 +10,7 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import java.util.concurrent.atomic.AtomicInteger;
 import timber.log.Timber;
 
 class SyncEventsTask {
@@ -28,19 +29,26 @@ class SyncEventsTask {
 
         if(action.equals(Constants.SYNCHRONIZE_EVENTS)) {
             synchronizeEvents();
+            deletePastEvents();
         }
     }
 
     private static void synchronizeEvents() {
-        Timber.i("Thread: %s", Thread.currentThread().getName());
+        Timber.d("Thread: %s", Thread.currentThread().getName());
 
+        AtomicInteger counter = new AtomicInteger();
         Disposable disposable = getRemoteEvents()
-            .doOnNext(i -> Timber.d("Thread doWork: %s", Thread.currentThread().getName()))
-            .subscribe(eventResponse -> {
-                for (RecordResponse recordResponse : eventResponse.getRecords()) {
-                    getLocalEvent(recordResponse);
-                }
-            }, Throwable::printStackTrace, () -> Timber.d("Sync completed"));
+            .doOnNext(i -> Timber.d("Thread: %s", Thread.currentThread().getName()))
+            .subscribe(
+                eventResponse -> {
+                    for (RecordResponse recordResponse : eventResponse.getRecords()) {
+                        Timber.d("New event received: %s", counter.incrementAndGet());
+                        getLocalEvent(recordResponse);
+                    }
+                },
+                Throwable::printStackTrace,
+                () -> Timber.d("%s events received", counter.get())
+            );
 
         mCompositeDisposable.add(disposable);
     }
@@ -58,7 +66,7 @@ class SyncEventsTask {
                 if (localEvent == null) {
                     addEvent(recordResponse);
                 }
-            }, error -> Timber.d("New event received"));
+            }, error -> Timber.d("Not able to get event locally: %s", recordResponse.getRecordid()));
 
         mCompositeDisposable.add(disposable);
     }
@@ -69,7 +77,16 @@ class SyncEventsTask {
 
     private static void addEvent(RecordResponse recordResponse) {
         Disposable disposable = mEventRepository.addEvent(recordResponse.toEvent())
-            .subscribe(eventId -> Timber.d("New event added"), Throwable::printStackTrace);
+            .subscribe(eventId -> Timber.d("New event added: %s", eventId),
+                Throwable::printStackTrace);
+
+        mCompositeDisposable.add(disposable);
+    }
+
+    private static void deletePastEvents() {
+        Disposable disposable = mEventRepository.deletePastEvents()
+            .subscribe(nbRows -> Timber.d("Past events deleted: %s", nbRows),
+                Throwable::printStackTrace);
 
         mCompositeDisposable.add(disposable);
     }

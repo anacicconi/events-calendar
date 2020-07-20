@@ -18,7 +18,7 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/map_bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             app:behavior_hideable="true"
             app:behavior_peekHeight="0dp"
             tools:behavior_peekHeight="200dp"
